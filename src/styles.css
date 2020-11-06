@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --text-colour: #092234;
+  --background: #C3DFE0;
+  --accent: #E26350;
+  --light-blue: #357DED;
+  --dark-blue: #135290;
+}
+html, body { 
+  height: 100%; 
+  background-color: var(--background);
+}
+body { 
+  margin: 0; 
+  font-family: "Montserrat-Regular", Arial, sans-serif; 
+}
+a {
+  color: var(--light-blue);
+}
+
+h2 {
+  font-family: "Montserrat-Bold", Arial, sans-serif;
+}
+h3 {
+  font-size: 18px;
+}
+button {
+  margin: 5px 0;
+}
