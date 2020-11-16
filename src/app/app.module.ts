@@ -11,6 +11,7 @@ import { ConnectComponent } from './connect/connect.component';
 import { MainComponent } from './main/main.component';
 import { SongInfoComponent } from './song-info/song-info.component';
 import { EmotionModalComponent } from './emotion-modal/emotion-modal.component';
+import { MusicPlayerComponent } from './music-player/music-player.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EmotionModalComponent } from './emotion-modal/emotion-modal.component';
     ConnectComponent,
     MainComponent,
     SongInfoComponent,
-    EmotionModalComponent
+    EmotionModalComponent,
+    MusicPlayerComponent
   ],
   imports: [
     BrowserModule,

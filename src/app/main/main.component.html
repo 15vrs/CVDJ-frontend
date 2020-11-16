@@ -1,19 +1,20 @@
-<div class="container-fluid main">
+<div class="container main">
   <div class="row albums">
-    <div class="col-lg-4">
+    <div class="col-md-4">
       <song-info
       [heading]="'Last played'"
       [description]="description"></song-info>
     </div>
-    <div class="col-lg-4">
+    <div class="col-md-4">
       <song-info
       [heading]="'Current song'"
       [description]="description"></song-info>
     </div>
-    <div class="col-lg-4">
+    <div class="col-md-4">
       <song-info
       [heading]="'Up next'"
       [description]="description"></song-info>
     </div>
   </div>
 </div>
+<music-player></music-player>
