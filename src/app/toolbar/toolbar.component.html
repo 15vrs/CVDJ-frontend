@@ -18,10 +18,9 @@
 
 <ng-template #emotionModal let-modal>
   <div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <emotion-modal></emotion-modal>
-  </div>
-  <div class="modal-footer">
-    <p> <b>Note:</b> changes are not immediatel]ly reflected.</p>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
   </div>
 </ng-template>
