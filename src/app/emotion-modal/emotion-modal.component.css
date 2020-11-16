@@ -2,30 +2,3 @@
   width: 100%;
   height: auto;
 }
-.modal-backdrop {
-  z-index: 500;
-  /* makes the below elements visible to a degree. */
-  opacity: 0.80;
-  padding: 0;
-  margin: 0;
-  width: webkit-fill-available;
-  height: webkit-fill-available;
-}
-.modal-window {
-  /* change this */
-  /* position: fixed;
-  top: 30px;
-  bottom: 0;
-  left: 300px;
-  width: 500px; */
-  z-index: 600;
-  background-color: white;
-  width: 100vh;
-  height: 80vh;
-}
-.show {
-  display: block;
-}
-.hidden {
-  display: none;
-}

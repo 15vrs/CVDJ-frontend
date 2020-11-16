@@ -10,7 +10,18 @@
       <a class="nav-link">About us</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link">How it works</a>
+      <a class="nav-link"
+      (click)="openModal(emotionModal)">How it works</a>
     </li>
   </ul>
 </nav>
+
+<ng-template #emotionModal let-modal>
+  <div class="modal-body">
+    <emotion-modal></emotion-modal>
+  </div>
+  <div class="modal-footer">
+    <p> <b>Note:</b> changes are not immediatel]ly reflected.</p>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
