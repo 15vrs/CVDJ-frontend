@@ -1,0 +1,11 @@
+.emotion-modal {
+  margin: 32px 16px 16px;
+}
+.user-emotions {
+  width: 100%;
+  height: auto;
+}
+p {
+  text-align: center;
+  margin: 16px 0 0;
+}

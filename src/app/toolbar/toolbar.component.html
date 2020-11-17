@@ -6,11 +6,21 @@
   />
   </a>
   <ul>
+    <!-- <li class="nav-item">
+      <a class="nav-link">About us</a>
+    </li> -->
     <li class="nav-item">
-      <a class="nav-link" href="#">About us</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">How it works</a>
+      <a class="nav-link"
+      (click)="openModal(emotionModal)">How it works</a>
     </li>
   </ul>
 </nav>
+
+<ng-template #emotionModal let-modal>
+  <div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <emotion-modal></emotion-modal>
+  </div>
+</ng-template>

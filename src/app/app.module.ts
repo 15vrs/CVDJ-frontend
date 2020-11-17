@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConnectComponent } from './connect/connect.component';
 import { MainComponent } from './main/main.component';
 import { SongInfoComponent } from './song-info/song-info.component';
+import { EmotionModalComponent } from './emotion-modal/emotion-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SongInfoComponent } from './song-info/song-info.component';
     LandingComponent,
     ConnectComponent,
     MainComponent,
-    SongInfoComponent
+    SongInfoComponent,
+    EmotionModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
 .toolbar {
+  margin-bottom: 16px;
   position: relative;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
-  color: var(--text-colour);
 }
 .logo {
   width: 40px;

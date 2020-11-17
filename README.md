@@ -1,5 +1,12 @@
 # CVDJ-frontend
 
+## Quick Start
+
+- `npm i` to install node_modules
+- `npm run start` to run app locally on port localhost:4200
+- `npm run test` to run tests
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
 
 ## Development server

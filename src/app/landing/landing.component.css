@@ -1,8 +1,8 @@
 .landing {
-  color: var(--text-colour);
   padding: 15px;
-  height: 100%;
-  width: 100!;
+}
+h2 {
+  text-align: center;
 }
 button {
   background-color: var(--light-blue);
