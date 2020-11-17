@@ -6,6 +6,8 @@
       src="../../assets/images/placeholder.svg"
       /> -->
       <camera (pictureTaken)="handleImage($event)"></camera>
+      <video #video class="vid" autoplay></video>
+      <canvas #canvas class="vid"></canvas>
     </div>
     <div class="col-md-6 my-auto">
       <h2>Connect your webcam</h2>
@@ -17,7 +19,8 @@
           <button 
           type="submit" 
           class="btn btn-primary"
-          routerLink="/main">
+          (click)="startCamera()"
+          >
           Connect
         </button>
       </div>

@@ -30,8 +30,7 @@ import { CameraComponent } from './camera/camera.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule,
-    WebcamModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
