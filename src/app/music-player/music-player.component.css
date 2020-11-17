@@ -1,7 +1,5 @@
 .icon {
-  width:30px;
-  height: 30px;
-}
-.fill {
-  fill: var(--accent);
+  width: 32px;
+  height: 32px;
+  margin: 0 16px;
 }
