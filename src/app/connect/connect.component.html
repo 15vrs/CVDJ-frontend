@@ -1,10 +1,11 @@
 <div class="container connect">
   <div class="row">
     <div class="col-md-6 my-auto">
-      <img class="webcam"
+      <!-- <img class="webcam"
       alt="webcam"
       src="../../assets/images/placeholder.svg"
-      />
+      /> -->
+      <camera (pictureTaken)="handleImage($event)"></camera>
     </div>
     <div class="col-md-6 my-auto">
       <h2>Connect your webcam</h2>
