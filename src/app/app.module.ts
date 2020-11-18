@@ -12,6 +12,7 @@ import { MainComponent } from './main/main.component';
 import { SongInfoComponent } from './song-info/song-info.component';
 import { EmotionModalComponent } from './emotion-modal/emotion-modal.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MusicPlayerComponent } from './music-player/music-player.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    StoreModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]
