@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-// import { WebcamImage } from 'ngx-webcam';
 
 @Component({
   selector: 'connect-webcam',
@@ -9,7 +8,6 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 export class ConnectComponent implements OnInit {
   
   @ViewChild('video', { static: true }) videoElement: ElementRef;
-  @ViewChild('canvas', { static: true }) canvas: ElementRef;
   static connectCamera: boolean = false;
   
   constructor(private renderer: Renderer2) { }
