@@ -5,3 +5,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.vertically-center {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+}
