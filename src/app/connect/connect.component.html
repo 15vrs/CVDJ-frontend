@@ -1,10 +1,7 @@
 <div class="container connect">
   <div class="row">
     <div class="col-md-6 my-auto">
-      <img class="webcam"
-      alt="webcam"
-      src="../../assets/images/placeholder.svg"
-      />
+      <video #video class="webcam" autoplay></video>
     </div>
     <div class="col-md-6 my-auto">
       <h2>Connect your webcam</h2>
@@ -16,7 +13,8 @@
           <button 
           type="submit" 
           class="btn btn-primary"
-          routerLink="/main">
+          (click)="startCamera()"
+          >
           Connect
         </button>
       </div>
