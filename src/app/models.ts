@@ -3,7 +3,7 @@ export class Camera {
   imageUrl?: string;
 }
 
-export class FaceEmotions {
+export class FacialEmotions {
   anger: any;
   contempt: any;
   disgust: any;

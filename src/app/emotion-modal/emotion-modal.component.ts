@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CameraService } from '../services/camera.service';
+import { FacialEmotionsService } from '../services/facial-emotions.service';
 @Component({
   selector: 'emotion-modal',
   templateUrl: './emotion-modal.component.html',
@@ -11,7 +12,10 @@ export class EmotionModalComponent implements OnInit {
   // static connectCamera: boolean = true; //have it connected by default (refactor to use global state in NgRx later)
   cameraConnected: boolean;
 
-  constructor(private renderer: Renderer2, private cameraService: CameraService) { }
+  constructor(
+    private renderer: Renderer2, 
+    private cameraService: CameraService,
+    private facialEmotionsService: FacialEmotionsService) { }
   
   ngOnInit(): void {
     this.getCameraState();
@@ -30,6 +34,11 @@ export class EmotionModalComponent implements OnInit {
 
   getCameraState(): void {
     this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
+    let temp = this.facialEmotionsService.getFacialEmotions()
+      .subscribe(response => {
+        console.log(response);
+      });
+    console.log(temp);
   }
   
   startCamera() {
