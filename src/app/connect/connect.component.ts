@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Camera } from '../models';
+import { CameraService } from '../services/camera.service';
 
 @Component({
   selector: 'connect-webcam',
@@ -8,12 +10,13 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 export class ConnectComponent implements OnInit {
   
   @ViewChild('video', { static: true }) videoElement: ElementRef;
-  static connectCamera: boolean = false;
+  cameraConnected: boolean;
   
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private cameraService: CameraService) { }
   
   ngOnInit(): void {
-    if (ConnectComponent.connectCamera) {
+    this.getCameraState();
+    if (this.cameraConnected) {
       this.startCamera();
     }
   }
@@ -25,9 +28,13 @@ export class ConnectComponent implements OnInit {
       height: { ideal: 2160 }
     }
   };
+
+  getCameraState(): void {
+    this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
+  }
   
   startCamera() {
-    ConnectComponent.connectCamera = true;
+    this.cameraService.updateCameraConnected(true);
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
       navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
     } else {

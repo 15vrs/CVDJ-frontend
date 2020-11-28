@@ -6,17 +6,14 @@ import { Camera } from '../models';
 })
 export class CameraService {
   private cameraState: Camera = {
-    cameraConnected: false
+    cameraConnected: false,
+    imageUrl: undefined
   }
 
   constructor() { }
 
   getCameraState(): Camera {
     return this.cameraState;
-  }
-
-  updateCameraState(state: Camera): void {
-    this.cameraState = state;
   }
 
   updateCameraConnected(payload: boolean): void {
