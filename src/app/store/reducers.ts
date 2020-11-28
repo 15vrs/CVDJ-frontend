@@ -1,44 +1,15 @@
+import { state } from '@angular/animations';
 import {
-  ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
   createReducer,
-  createSelector,
   MetaReducer,
-  on
+  on,
 } from '@ngrx/store';
+import { Action } from 'rxjs/internal/scheduler/Action';
 import { environment } from '../../environments/environment';
 import * as Actions from '../store/actions'
+import { CameraState, MusicState, FaceApiState, AppState } from './state';
 
-
-export interface State {
-  CameraState: CameraState,
-  MusicState: MusicState
-}
-
-export interface CameraState {
-  connectCamera: boolean,
-  // connecting: boolean,
-  image?: string,
-}
-
-export interface FaceApiState {
-  anger: any,
-  contempt: any,
-  disgust: any,
-  fear: any,
-  happiness: any,
-  neutral: any,
-  sadness: any,
-  surprise: any
-}
-
-export interface MusicState {
-  playing: boolean,
-  previouslyPlayed?: string,
-  currentlyPlaying?: string,
-  upNext?: string
-}
 
 export const initialCameraState: CameraState = {
   connectCamera: false,
@@ -53,27 +24,49 @@ export const initialMusicState: MusicState = {
   upNext: undefined
 }
 
-
-export const initialState: State = {
-  CameraState: initialCameraState,
-  MusicState: initialMusicState
+export const initialFaceApiState: FaceApiState = {
+  anger: undefined,
+  contempt: undefined,
+  disgust: undefined,
+  fear: undefined,
+  happiness: undefined,
+  neutral: undefined,
+  sadness: undefined,
+  surprise: undefined
 }
 
+export const initialState: AppState = {
+  CameraState: initialCameraState,
+  MusicState: initialMusicState,
+  FaceApiState: initialFaceApiState
+}
+/**
+ * Reducers update application state in the Store
+ * by taking current state + action to return new state
+ */
 const cameraReducer = createReducer(
-  initialState,
+  initialState.CameraState,
   on(Actions.cameraConnect, state => ({ ...state, connectCamera: true})),
   on(Actions.cameraDisconnect, state => ({ ...state, connectCamera: false}))
-)
+);
+
 const musicReducer = createReducer(
-  initialState,
+  initialState.MusicState,
   on(Actions.musicPlay, state => ({ ...state, playing: true})), //update currentlyPlaying here
   on(Actions.musicPause, state => ({ ...state, playing: false})),
-  on(Actions.musicSkipForward, state => ({ ...state, playing: true, previouslyPlayed: state.MusicState.currentlyPlaying})),
-)
+  on(Actions.musicSkipForward, state => ({ ...state, playing: true, previouslyPlayed: state.currentlyPlaying})),
+);
 
-export const reducers: ActionReducerMap<State> = {
+const faceApiReducer = createReducer(
+  initialState.FaceApiState,
+  on(Actions.updateFaceApi, (state, {payload}) => ({ 
+    ...state, 
+    FaceApiState: payload
+  }))
+);
+export function CameraReducer(state: CameraState, action: Action) {
   return cameraReducer(state, action);
 };
 
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
