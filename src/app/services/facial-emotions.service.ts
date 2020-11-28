@@ -23,11 +23,26 @@ export class FacialEmotionsService {
 
   constructor(private http: HttpClient) { }
 
-  getFacialEmotions(): Observable<FacialEmotions> {
-    return this.http.get<FacialEmotions>(this.faceApiUrl)
+  private getFacialEmotions() {
+    this.http.get<FacialEmotions>(this.faceApiUrl)
       .pipe(
         catchError(this.handleError<FacialEmotions>('getFacialEmotionsState'))
-      );
+      )
+      .subscribe(response => {
+        this.facialEmotionsState.anger = response.anger;
+        this.facialEmotionsState.contempt = response.contempt;
+        this.facialEmotionsState.disgust = response.disgust;
+        this.facialEmotionsState.fear = response.fear;
+        this.facialEmotionsState.happiness = response.happiness;
+        this.facialEmotionsState.neutral = response.neutral;
+        this.facialEmotionsState.sadness = response.sadness;
+        this.facialEmotionsState.surprise = response.surprise;
+      });
+  }
+
+  getFacialEmotionsState(): FacialEmotions {
+    this.getFacialEmotions();
+    return this.facialEmotionsState;
   }
 
   /**

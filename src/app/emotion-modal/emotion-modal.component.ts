@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FacialEmotions } from '../models';
 import { CameraService } from '../services/camera.service';
 import { FacialEmotionsService } from '../services/facial-emotions.service';
 @Component({
@@ -11,6 +12,7 @@ export class EmotionModalComponent implements OnInit {
   @ViewChild('video', { static: true }) videoElement: ElementRef;
   // static connectCamera: boolean = true; //have it connected by default (refactor to use global state in NgRx later)
   cameraConnected: boolean;
+  emotions: FacialEmotions;
 
   constructor(
     private renderer: Renderer2, 
@@ -19,6 +21,9 @@ export class EmotionModalComponent implements OnInit {
   
   ngOnInit(): void {
     this.getCameraState();
+    this.getFacialEmotionsState(); 
+    //need to access this conditionally
+    // or access onInit but use ngIf in template to conditionally display text
     if (this.cameraConnected) {
       this.startCamera();
     }
@@ -34,13 +39,12 @@ export class EmotionModalComponent implements OnInit {
 
   getCameraState(): void {
     this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
-    let temp = this.facialEmotionsService.getFacialEmotions()
-      .subscribe(response => {
-        console.log(response);
-      });
-    console.log(temp);
   }
   
+  getFacialEmotionsState(): void {
+    this.emotions = this.facialEmotionsService.getFacialEmotionsState();
+  }
+
   startCamera() {
     this.cameraService.updateCameraConnected(true);
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
