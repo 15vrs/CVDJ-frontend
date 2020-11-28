@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Camera } from '../models';
 
 @Injectable({
@@ -9,6 +9,7 @@ export class CameraService {
     cameraConnected: false,
     imageUrl: undefined
   }
+  @Output() connectClicked = new EventEmitter<boolean>();
 
   constructor() { }
 
@@ -18,6 +19,11 @@ export class CameraService {
 
   updateCameraConnected(payload: boolean): void {
     this.cameraState.cameraConnected = payload;
+  }
+
+  connectCameraClicked() {
+    this.updateCameraConnected(true);
+    this.connectClicked.emit(true);
 
   }
 }

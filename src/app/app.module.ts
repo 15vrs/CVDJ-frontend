@@ -13,6 +13,7 @@ import { MainComponent } from './main/main.component';
 import { SongInfoComponent } from './song-info/song-info.component';
 import { EmotionModalComponent } from './emotion-modal/emotion-modal.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
+import { UserCameraComponent } from './user-camera/user-camera.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MusicPlayerComponent } from './music-player/music-player.component';
     MainComponent,
     SongInfoComponent,
     EmotionModalComponent,
-    MusicPlayerComponent
+    MusicPlayerComponent,
+    UserCameraComponent
   ],
   imports: [
     BrowserModule,

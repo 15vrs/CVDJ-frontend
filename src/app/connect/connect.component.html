@@ -1,7 +1,7 @@
 <div class="container connect">
   <div class="row">
     <div class="col-md-6 my-auto">
-      <video #video class="webcam" autoplay></video>
+      <user-camera></user-camera>
     </div>
     <div class="col-md-6 my-auto">
       <h2>Connect your webcam</h2>
@@ -13,7 +13,7 @@
           <button 
           type="submit" 
           class="btn btn-primary"
-          (click)="startCamera()"
+          (click)="onClick()"
           >
           Connect
         </button>
