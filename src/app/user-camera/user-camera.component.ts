@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { CameraService } from '../services/camera.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CameraService } from '../services/camera.service';
 })
 export class UserCameraComponent implements OnInit {
   @ViewChild('video', { static: true }) videoElement: ElementRef;
-
+  @ViewChild('canvas', { static: true }) canvas: ElementRef;
   cameraConnected: boolean;
 
   constructor(
@@ -55,6 +55,29 @@ export class UserCameraComponent implements OnInit {
   
   attachVideo(stream) {
     this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
+  }
+
+  takeSnapshot(): void {
+    const _video = this.videoElement.nativeElement;
+    const dimensions = {width: 640, height: 480};
+    if (_video.videoWidth) {
+      dimensions.width = _video.videoWidth;
+      dimensions.height = _video.videoHeight;
+    }
+    const _canvas = this.canvas.nativeElement;
+     _canvas.width = dimensions.width;
+    _canvas.height = dimensions.height;
+
+    // paint snapshot image to canvas
+    const context2d = _canvas.getContext('2d');
+    context2d.drawImage(_video, 0, 0);
+
+    // read canvas content as image
+    const dataUrl: string = _canvas.toDataURL('image/jpeg', 0.92);
+    console.log("data url", dataUrl);
+
+    this.cameraService.updateImageUrl(dataUrl);
+
   }
 
 }
