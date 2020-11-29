@@ -4,6 +4,7 @@
 
 - `npm i` to install node_modules
 - `npm run start` to run app locally on port localhost:4200
+- `npm run server` to run fake backend server
 - `npm run test` to run tests
 
 
