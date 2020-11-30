@@ -1,8 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError} from 'rxjs/operators';
 import { FacialEmotions } from '../models';
+import { BackendService } from './backend.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +17,10 @@ export class FacialEmotionsService {
     surprise: 0,
   }
 
-  private faceApiUrl = 'http://localhost:3000/emotion' //test with fake server
-
-  constructor(private http: HttpClient) { }
+  constructor(private backend: BackendService) { }
 
   private getFacialEmotions() {
-    this.http.get<FacialEmotions>(this.faceApiUrl)
-      .pipe(
-        catchError(this.handleError<FacialEmotions>('getFacialEmotionsState'))
-      )
+    this.backend.getFacialEmotions()
       .subscribe(response => {
         this.facialEmotionsState.anger = response.anger;
         this.facialEmotionsState.contempt = response.contempt;
@@ -45,23 +38,4 @@ export class FacialEmotionsService {
     return this.facialEmotionsState;
   }
 
-  /**
-  * Handle Http operation that failed.
-  * Let the app continue.
-  * @param operation - name of the operation that failed
-  * @param result - optional value to return as the observable result
-  */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); 
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  private getApiResponse(): void {
-    // return this.http.get('/api/user')
-    //   .map((res: Response) => res.json().response);
-  }
 }

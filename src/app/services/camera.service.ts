@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, Input, Output } from '@angular/core';
-import { Camera } from '../models';
+import { Observable, of } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+import { Camera, FacialEmotions } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class CameraService {
 
   @Output() connectClicked = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getCameraState(): Camera {
     return this.cameraState;
