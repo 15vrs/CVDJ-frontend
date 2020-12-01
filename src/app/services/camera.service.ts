@@ -3,6 +3,7 @@ import { EventEmitter, Injectable, Input, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Camera, FacialEmotions } from '../models';
+import { BackendService } from './backend.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CameraService {
 
   @Output() connectClicked = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private backend: BackendService) { }
 
   getCameraState(): Camera {
     return this.cameraState;
@@ -27,6 +28,7 @@ export class CameraService {
 
   updateImageUrl(payload: string): void {
     this.cameraState.imageUrl = payload;
+    this.backend.postImageUrl(payload);
   }
 
   connectCameraClicked() {

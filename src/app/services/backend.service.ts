@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
@@ -9,7 +9,10 @@ import { FacialEmotions } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:3000' //test with fake server
+  private backendApiUrl = 'http://localhost:3000'; //test with fake server
+
+  private static headers = new HttpHeaders()
+    .set("Content-Type", "application/json");
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +27,7 @@ export class BackendService {
 
   // POST screenshot (base64 url) to backend
   postImageUrl(payload: string): void {
-    this.http.post<string>(this.backendApiUrl + '/user1/img', payload)
+    this.http.post<string>(this.backendApiUrl + '/face', payload)
       .pipe(
         retry(3),
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
