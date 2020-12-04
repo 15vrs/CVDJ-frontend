@@ -72,11 +72,8 @@ export class UserCameraComponent implements OnInit {
     const context2d = _canvas.getContext('2d');
     context2d.drawImage(_video, 0, 0);
 
-    _canvas.toBlob(blob => {
-      let url = URL.createObjectURL(blob);
-      this.cameraService.updateImageUrl(url);
-      console.log("blob", url);
-    },'image/jpeg', 0.92);
+    // create blob to send to the backend
+    _canvas.toBlob(blob => this.cameraService.updateImageUrl(blob),'image/jpeg', 0.92);
 
   }
 

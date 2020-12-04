@@ -9,10 +9,7 @@ import { FacialEmotions } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:3000'; //test with fake server
-
-  private static headers = new HttpHeaders()
-    .set("Content-Type", "application/json");
+  private backendApiUrl = 'http://localhost:8080'; //test with fake server
 
   constructor(private http: HttpClient) { }
 
@@ -25,13 +22,14 @@ export class BackendService {
       )
   }
 
-  // POST screenshot (base64 url) to backend
-  postImageUrl(payload: string): void {
-    this.http.post<string>(this.backendApiUrl + '/face', payload)
+  // PUT screenshot (blob) to backend
+  putImageUrl(payload: Blob): void {
+    this.http.put<Blob>(this.backendApiUrl + '/face', payload)
       .pipe(
         retry(3),
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
       )
+      .subscribe()
   }
 
   private getApiResponse(): void {
@@ -48,7 +46,7 @@ export class BackendService {
   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.log(error);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

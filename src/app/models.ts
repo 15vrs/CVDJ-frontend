@@ -1,6 +1,6 @@
 export class Camera {
   cameraConnected: boolean;
-  imageUrl?: string;
+  imageUrl?: Blob;
 }
 
 export class FacialEmotions {
