@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable, Input, Output } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-import { Camera, FacialEmotions } from '../models';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Camera } from '../models';
 import { BackendService } from './backend.service';
 
 @Injectable({

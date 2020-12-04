@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { interval } from 'rxjs';
 import { CameraService } from '../services/camera.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class UserCameraComponent implements OnInit {
     // display webcam on page first time
     this.cameraService.connectClicked
       .subscribe(event => {
-        this.startCamera();
+        this.startCameraWithSnapshots();
       })
     // when revisiting page, check if webcam was previously connected
     this.getCameraState();
@@ -49,6 +50,16 @@ export class UserCameraComponent implements OnInit {
     }
   }
 
+  startCameraWithSnapshots() {
+    this.cameraService.updateCameraConnected(true);
+    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
+      navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
+    } else {
+      alert('Sorry, camera not available.');
+    }
+    this.takeSnapshot();
+  }
+
   handleError(error) {
     console.log('Error: ', error);
   }
@@ -58,23 +69,25 @@ export class UserCameraComponent implements OnInit {
   }
 
   takeSnapshot(): void {
-    const _video = this.videoElement.nativeElement;
-    const dimensions = {width: 640, height: 480};
-    if (_video.videoWidth) {
-      dimensions.width = _video.videoWidth;
-      dimensions.height = _video.videoHeight;
-    }
-    const _canvas = this.canvas.nativeElement;
-     _canvas.width = dimensions.width;
-    _canvas.height = dimensions.height;
-
-    // paint snapshot image to canvas
-    const context2d = _canvas.getContext('2d');
-    context2d.drawImage(_video, 0, 0);
-
-    // create blob to send to the backend
-    _canvas.toBlob(blob => this.cameraService.updateImageUrl(blob),'image/jpeg', 0.92);
-
+    // take snapshots every 20s
+    interval(20000).subscribe(() => {
+      console.log("taking snapshot")
+      const _video = this.videoElement.nativeElement;
+      const dimensions = {width: 640, height: 480};
+      if (_video.videoWidth) {
+        dimensions.width = _video.videoWidth;
+        dimensions.height = _video.videoHeight;
+      }
+      const _canvas = this.canvas.nativeElement;
+       _canvas.width = dimensions.width;
+      _canvas.height = dimensions.height;
+  
+      // paint snapshot image to canvas
+      const context2d = _canvas.getContext('2d');
+      context2d.drawImage(_video, 0, 0);
+  
+      // create blob to send to the backend
+      _canvas.toBlob(blob => this.cameraService.updateImageUrl(blob),'image/jpeg', 0.92);
+    })
   }
-
 }
