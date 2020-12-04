@@ -13,6 +13,7 @@ export class BackendService {
 
   constructor(private http: HttpClient) { }
 
+
   // GET emotion data from backend - this may change to PUT
   getFacialEmotions(): Observable<FacialEmotions> {
     return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
@@ -32,11 +33,15 @@ export class BackendService {
       .subscribe()
   }
 
-  private getApiResponse(): void {
-    // return this.http.get('/api/user')
-    //   .map((res: Response) => res.json().response);
+  // where to put userId in subsequent requests? 
+  // can't send GET request with body so may have to send in header
+  getUserId(): Observable<string> {
+    return this.http.get<string>(this.backendApiUrl + '/userId')
+    .pipe(
+      retry(3),
+      catchError(this.handleError<string>('getFacialEmotions'))
+    )
   }
-
 
   /**
   * Handle Http operation that failed.

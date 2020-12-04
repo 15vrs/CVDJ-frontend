@@ -1,3 +1,8 @@
+export class Room {
+  userId: string;
+  roomId?: string;
+}
+
 export class Camera {
   cameraConnected: boolean;
   imageUrl?: Blob;
