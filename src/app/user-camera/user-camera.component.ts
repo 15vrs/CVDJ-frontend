@@ -20,7 +20,8 @@ export class UserCameraComponent implements OnInit {
     // display webcam on page first time
     this.cameraService.connectClicked
       .subscribe(event => {
-        this.startCameraWithSnapshots();
+        this.startCamera();
+        this.takeSnapshot();
       })
     // when revisiting page, check if webcam was previously connected
     this.getCameraState();
@@ -50,21 +51,11 @@ export class UserCameraComponent implements OnInit {
     }
   }
 
-  startCameraWithSnapshots() {
-    this.cameraService.updateCameraConnected(true);
-    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
-      navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
-    } else {
-      alert('Sorry, camera not available.');
-    }
-    this.takeSnapshot();
-  }
-
-  handleError(error) {
+  handleError(error): void {
     console.log('Error: ', error);
   }
   
-  attachVideo(stream) {
+  attachVideo(stream): void {
     this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
   }
 
