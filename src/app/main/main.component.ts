@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MusicService } from '../services/music.service';
 
 @Component({
   selector: 'main',
@@ -8,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
 
   description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-  constructor() { }
+  currentAlbumArt: string;
+  
+  constructor(private musicService: MusicService) { }
 
   ngOnInit(): void {
+    this.getAlbumArt()
+  }
+
+  async getAlbumArt() {
+    this.currentAlbumArt = this.musicService.getCurrentlyPlaying();
+    console.log(this.currentAlbumArt)
   }
 
 }

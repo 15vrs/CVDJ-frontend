@@ -39,7 +39,16 @@ export class BackendService {
     return this.http.get<string>(this.backendApiUrl + '/userId')
     .pipe(
       retry(3),
-      catchError(this.handleError<string>('getFacialEmotions'))
+      catchError(this.handleError<string>('getUserId'))
+    )
+  }
+
+  // scaffold getting an image from URL
+  getAlbumArt(): Observable<string> {
+    return this.http.get<string>(this.backendApiUrl + '/albumArt')
+    .pipe(
+      retry(3),
+      catchError(this.handleError<string>('getAlbumArt'))
     )
   }
 

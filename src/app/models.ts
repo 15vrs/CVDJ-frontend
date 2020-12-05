@@ -22,7 +22,7 @@ export class FacialEmotions {
 export class Music {
   playing: boolean;
   previouslyPlayed?: string;
-  currentlyPlayed?: string;
+  currentlyPlaying?: string;
   upNext?: string;
   skipForward: boolean;
   skipBackward: boolean;
