@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../services/room.service';
 
 @Component({
-  selector: 'landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css']
+  selector: 'join-room',
+  templateUrl: './join-room.component.html',
+  styleUrls: ['./join-room.component.css']
 })
-export class LandingComponent implements OnInit {
+export class JoinRoomComponent implements OnInit {
 
   constructor(private room: RoomService) { }
 
