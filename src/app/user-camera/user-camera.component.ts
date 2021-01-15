@@ -64,7 +64,6 @@ export class UserCameraComponent implements OnInit {
   }
 
   takeSnapshot(): void {
-    console.log("taking snapshot")
     const _video = this.videoElement.nativeElement;
     const dimensions = {width: 640, height: 480};
     if (_video.videoWidth) {

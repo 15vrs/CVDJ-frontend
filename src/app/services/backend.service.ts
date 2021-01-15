@@ -26,7 +26,6 @@ export class BackendService {
   // PUT screenshot (blob) to backend
   // fix retry (sending 4 requests at once)
   postImageUrl(payload: any): void {
-    payload = "blob"
     this.http.post<any>(this.backendApiUrl + '/emotion', payload)
       .pipe(
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
