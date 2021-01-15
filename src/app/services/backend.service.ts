@@ -9,12 +9,12 @@ import { FacialEmotions } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with fake server
+  private backendApiUrl = 'http://127.0.0.1:5000'; //test with fake server
 
   constructor(private http: HttpClient) { }
 
 
-  // GET emotion data from backend - this may change to PUT
+  // GET emotion data from backend - may not need this, emotions returned as part of PUT /emotion
   getFacialEmotions(): Observable<FacialEmotions> {
     return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
       .pipe(
@@ -24,10 +24,20 @@ export class BackendService {
   }
 
   // PUT screenshot (blob) to backend
-  putImageUrl(payload: Blob): void {
-    this.http.put<Blob>(this.backendApiUrl + '/emotion', payload)
+  // fix retry (sending 4 requests at once)
+  postImageUrl(payload: any): void {
+    payload = "blob"
+    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
       .pipe(
-        retry(3),
+        catchError(this.handleError<FacialEmotions>('postImageUrl'))
+      )
+      .subscribe()
+  }
+
+  // PUT screenshot (blob) to backend
+  testPutImageUrl(payload: any): void {
+    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
+      .pipe(
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
       )
       .subscribe()
