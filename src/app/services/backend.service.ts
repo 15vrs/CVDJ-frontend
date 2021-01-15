@@ -18,7 +18,6 @@ export class BackendService {
   getFacialEmotions(): Observable<FacialEmotions> {
     return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
       .pipe(
-        retry(3),
         catchError(this.handleError<FacialEmotions>('getFacialEmotions'))
       )
   }
@@ -47,7 +46,6 @@ export class BackendService {
   getUserId(): Observable<string> {
     return this.http.get<string>(this.backendApiUrl + '/userId')
     .pipe(
-      retry(3),
       catchError(this.handleError<string>('getUserId'))
     )
   }
@@ -56,7 +54,6 @@ export class BackendService {
   getAlbumArt(): Observable<string> {
     return this.http.get<string>(this.backendApiUrl + '/albumArt')
     .pipe(
-      retry(3),
       catchError(this.handleError<string>('getAlbumArt'))
     )
   }
