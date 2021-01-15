@@ -9,7 +9,7 @@ import { FacialEmotions } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://127.0.0.1:5000'; //test with fake server
+  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
 
   constructor(private http: HttpClient) { }
 
@@ -22,10 +22,10 @@ export class BackendService {
       )
   }
 
-  // PUT screenshot (blob) to backend
-  // fix retry (sending 4 requests at once)
+  // POST screenshot (blob) to backend
   postImageUrl(payload: any): void {
-    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
+    console.log(payload)
+    this.http.post<any>('http://127.0.0.1:5000' + '/emotion', payload) 
       .pipe(
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
       )
@@ -34,7 +34,7 @@ export class BackendService {
 
   // PUT screenshot (blob) to backend
   testPutImageUrl(payload: any): void {
-    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
+    this.http.post<any>('http://127.0.0.1:5000' + '/emotion', payload)
       .pipe(
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
       )
