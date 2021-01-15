@@ -25,7 +25,7 @@ export class BackendService {
 
   // PUT screenshot (blob) to backend
   putImageUrl(payload: Blob): void {
-    this.http.put<Blob>(this.backendApiUrl + '/face', payload)
+    this.http.put<Blob>(this.backendApiUrl + '/emotion', payload)
       .pipe(
         retry(3),
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
