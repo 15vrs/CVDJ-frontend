@@ -14,7 +14,7 @@ export class JoinRoomComponent implements OnInit {
   }
 
   onClick() {
-    this.room.getUserId();
+    this.room.getUserId(); // add BE call
   }
 
 }
