@@ -2,25 +2,30 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { FacialEmotions } from '../models';
+import { Face, FacialEmotions } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with fake server
+  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //test with fake server
 
   constructor(private http: HttpClient) { }
 
 
   // GET emotion data from backend - this may change to PUT
-  getFacialEmotions(): Observable<FacialEmotions> {
-    return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
-      .pipe(
-        retry(3),
-        catchError(this.handleError<FacialEmotions>('getFacialEmotions'))
-      )
+  getFacialEmotions(): Observable<Face> {
+    return this.http.post<Face>(this.backendApiUrl + '/emotion',{ responseType: 'text' })
+       .pipe(
+         retry(3),
+         catchError(this.handleError<Face>('getFacialEmotions'))
+       )
+    // return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
+    //   .pipe(
+    //     retry(3),
+    //     catchError(this.handleError<FacialEmotions>('getFacialEmotions'))
+    //   )
   }
 
   // PUT screenshot (blob) to backend
