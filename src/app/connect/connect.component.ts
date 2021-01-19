@@ -25,7 +25,7 @@ export class ConnectComponent implements OnInit {
   onClick() {
     this.cameraService.connectCameraClicked();
     interval(3000).subscribe(() => {
-      this.router.navigateByUrl('/main')
+      this.router.navigateByUrl('/main');
     });
   }
 

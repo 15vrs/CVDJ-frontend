@@ -17,11 +17,15 @@ body {
 a {
   color: var(--light-blue);
 }
-
-h2 {
+h1 {
   font-family: "Montserrat-Bold", Arial, sans-serif;
+  margin-bottom: 24px;
 }
-h3 {
+h2 {
+  font-family: "Montserrat-Medium", Arial, sans-serif;
+  font-size: 24px;
+}
+p {
   font-size: 18px;
 }
 button {
