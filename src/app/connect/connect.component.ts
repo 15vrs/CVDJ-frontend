@@ -29,8 +29,4 @@ export class ConnectComponent implements OnInit {
     });
   }
 
-  testClick() {
-    this.backend.testPutImageUrl("test body");
-  }
-
 }

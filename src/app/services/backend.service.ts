@@ -33,15 +33,6 @@ export class BackendService {
       .subscribe()
   }
 
-  // PUT screenshot (blob) to backend
-  testPutImageUrl(payload: any): void {
-    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
-      .pipe(
-        catchError(this.handleError<FacialEmotions>('postImageUrl'))
-      )
-      .subscribe()
-  }
-
   // where to put userId in subsequent requests? 
   // can't send GET request with body so may have to send in header
   getUserId(): Observable<string> {
@@ -60,7 +51,7 @@ export class BackendService {
   }
 
   getRoomId(): Observable<string> {
-    return this.http.get<string>(this.backendApiUrl + '/roomId')
+    return this.http.get<string>(this.backendApiUrl + '/create_room')
     .pipe(
       catchError(this.handleError<string>('getRoomId'))
     )
