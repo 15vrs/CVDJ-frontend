@@ -5,17 +5,43 @@
     src="../../assets/images/cvdj-logo.svg"
   />
   </a>
-  <ul>
+  <ul class="mr-auto">
     <!-- <li class="nav-item">
       <a class="nav-link">About us</a>
     </li> -->
     <li class="nav-item">
+      <a class="nav-link" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/create">Create Room</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/join">Join Room</a>
+    </li>
+  </ul>
+  <div *ngIf="cameraConnected else staticModalLink">
+    <li class="nav-item">
       <a class="nav-link"
       (click)="openModal(emotionModal)">How it works</a>
     </li>
-  </ul>
+  </div>
 </nav>
 
+<ng-template #staticModalLink>
+  <li class="nav-item">
+    <a class="nav-link"
+    (click)="openModal(staticModal)">How it works</a>
+  </li>
+</ng-template>
+<ng-template #staticModal let-modal>
+  <div class="modal-body static-modal">
+    <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h2 class="text-center">How CVDJ works</h2>
+    <p>CVDJ is a emotion-based song recommendation system. For each room, CVDJ determines the average user emotion as music is being played. This data is then used to pick upcoming songs.</p>
+  </div>
+</ng-template>
 <ng-template #emotionModal let-modal>
   <div class="modal-body">
     <button type="button" class="close" aria-label="Close" (click)="modal.close()">
