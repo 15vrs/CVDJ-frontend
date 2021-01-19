@@ -58,6 +58,13 @@ export class BackendService {
     )
   }
 
+  getRoomId(): Observable<string> {
+    return this.http.get<string>(this.backendApiUrl + '/roomId')
+    .pipe(
+      catchError(this.handleError<string>('getRoomId'))
+    )
+  }
+
   /**
   * Handle Http operation that failed.
   * Let the app continue.
