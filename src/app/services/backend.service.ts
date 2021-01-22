@@ -50,11 +50,21 @@ export class BackendService {
     )
   }
 
-  getRoomId() {
-    this.http.get(this.backendApiUrl + '/create_room', { responseType: 'text', observe: 'response',})
+  getLogin() {
+    this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
     .subscribe(response => {
       window.open(response.url, "_blank");
       catchError(this.handleError<string>('getRoomId'));
+    })
+  }
+
+  getRoomId() {
+    this.http.get<string>(this.backendApiUrl + '/create_room')
+    .pipe(
+      catchError(this.handleError<string>('getUserId'))
+    )
+    .subscribe(response => {
+      // parse response to get roomID
     })
   }
 

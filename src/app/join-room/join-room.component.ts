@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomService } from '../services/room.service';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'join-room',
@@ -8,13 +8,13 @@ import { RoomService } from '../services/room.service';
 })
 export class JoinRoomComponent implements OnInit {
 
-  constructor(private room: RoomService) { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
   }
 
   onClick() {
-    this.room.getUserId(); // add BE call
+    this.backend.getUserId(); // add BE call
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomService } from '../services/room.service';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-create-room',
@@ -8,13 +8,13 @@ import { RoomService } from '../services/room.service';
 })
 export class CreateRoomComponent implements OnInit {
 
-  constructor(private room: RoomService) { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
   }
 
   onClick() {
-    this.room.getRoomId(); // login
+    this.backend.getLogin(); 
     // after successful login, we should auto join the room and navigate user to main page
   }
 
