@@ -21,7 +21,6 @@ export class UserCameraComponent implements OnInit {
     this.cameraService.connectClicked
       .subscribe(event => {
         this.startCamera();
-        this.takeSnapshot(); // take snapshot immediately for testing, remove later
         // take snapshots every 20s
         interval(20000).subscribe(() => {
           this.takeSnapshot();
