@@ -24,7 +24,7 @@ export class BackendService {
   }
 
   // POST screenshot (blob) to backend
-  postImageUrl(payload: any): void {
+  postImageUrl(payload: any) {
     console.log(payload)
     this.http.post<any>(this.backendApiUrl + '/emotion', payload) 
       .pipe(
@@ -34,12 +34,15 @@ export class BackendService {
   }
 
   // where to put userId in subsequent requests? 
-  // can't send GET request with body so may have to send in header
-  getUserId(): Observable<string> {
-    return this.http.get<string>(this.backendApiUrl + '/userId')
+  // can't send GET request with body so may have to send in header or use PUT
+  getUserId() {
+    this.http.get<string>(this.backendApiUrl + '/userId')
     .pipe(
       catchError(this.handleError<string>('getUserId'))
     )
+    .subscribe(response => {
+      // parse response to get userID
+    })
   }
 
   // scaffold getting an image from URL
@@ -50,6 +53,7 @@ export class BackendService {
     )
   }
 
+  // method allows user to login to Spotify via backend service
   getLogin() {
     this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
     .subscribe(response => {
