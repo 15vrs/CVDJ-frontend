@@ -14,7 +14,7 @@ export class CreateRoomComponent implements OnInit {
   }
 
   onClick() {
-    this.room.getRoomId(); // add BE call
+    this.room.getRoomId(); // login
     // after successful login, we should auto join the room and navigate user to main page
   }
 
