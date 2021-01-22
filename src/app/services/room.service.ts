@@ -13,17 +13,17 @@ export class RoomService {
   constructor(private backend: BackendService) { }
 
   getUserId() {
-    this.backend.getUserId()
-      .subscribe(response => {
-        this.roomState.userId = response;
-      })
+    // this.backend.getUserId()
+    //   .subscribe(response => {
+    //     this.roomState.userId = response;
+    //   })
   }
 
   getRoomId() {
-    this.backend.getRoomId()
-    .subscribe(response => {
-      this.roomState.roomId = response;
-    })
+    // this.backend.getRoomId()
+    // .subscribe(response => {
+    //   this.roomState.roomId = response;
+    // })
   }
 
 

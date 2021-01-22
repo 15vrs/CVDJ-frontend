@@ -50,11 +50,12 @@ export class BackendService {
     )
   }
 
-  getRoomId(): Observable<string> {
-    return this.http.get<string>(this.backendApiUrl + '/create_room')
-    .pipe(
-      catchError(this.handleError<string>('getRoomId'))
-    )
+  getRoomId() {
+    this.http.get(this.backendApiUrl + '/create_room', { responseType: 'text', observe: 'response',})
+    .subscribe(response => {
+      window.open(response.url, "_blank");
+      catchError(this.handleError<string>('getRoomId'));
+    })
   }
 
   /**
