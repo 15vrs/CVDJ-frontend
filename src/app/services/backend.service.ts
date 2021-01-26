@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { Face, FacialEmotions } from '../models';
+import { faceAttributes, FacialEmotions } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,11 @@ export class BackendService {
 
 
   // GET emotion data from backend - this may change to PUT
-  getFacialEmotions(): Observable<Face> {
-    return this.http.post<Face>(this.backendApiUrl + '/emotion',{ responseType: 'text' })
+  getFacialEmotions(): Observable<faceAttributes> {
+    return this.http.post<faceAttributes>(this.backendApiUrl + '/emotion',{ responseType: 'text' })
        .pipe(
          retry(3),
-         catchError(this.handleError<Face>('getFacialEmotions'))
+         catchError(this.handleError<faceAttributes>('getFacialEmotions'))
        )
     // return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
     //   .pipe(
