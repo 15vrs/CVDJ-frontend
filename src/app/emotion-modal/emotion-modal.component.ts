@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FacialEmotions } from '../models';
-import { CameraService } from '../services/camera.service';
-import { FacialEmotionsService } from '../services/facial-emotions.service';
+import { BackendService } from '../services/backend.service';
+
 @Component({
   selector: 'emotion-modal',
   templateUrl: './emotion-modal.component.html',
@@ -11,16 +11,12 @@ export class EmotionModalComponent implements OnInit {
 
   emotions: FacialEmotions;
 
-  constructor(private facialEmotionsService: FacialEmotionsService) { }
+  constructor(private backend: BackendService) { }
   
   ngOnInit(): void {
-    this.getFacialEmotionsState(); 
+    this.emotions = this.backend.getFacialEmotions();
     //need to access this conditionally
     // or access onInit but use ngIf in template to conditionally display text
-  }
-
-  getFacialEmotionsState(): void {
-    this.emotions = this.facialEmotionsService.getFacialEmotionsState();
   }
 
 }

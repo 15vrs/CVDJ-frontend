@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval, Observable, of } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { faceAttributes, FacialEmotions } from '../models';
 
 @Injectable({
@@ -18,21 +18,37 @@ export class BackendService {
     private http: HttpClient, 
     private router: Router) { }
 
-
-  // POST emotion data from backend - this may change to PUT
-  getFacialEmotions(): Observable<faceAttributes> {
-    return this.http.post<faceAttributes>(this.backendApiUrl + '/emotion',{ responseType: 'text' })
-       .pipe(
-         catchError(this.handleError<faceAttributes>('getFacialEmotions'))
-       )
-  }
+    private facialEmotionsState: FacialEmotions = {
+      anger: 0,
+      contempt: 0,
+      disgust: 0,
+      fear: 0,
+      happiness: 0,
+      neutral: 0,
+      sadness: 0,
+      surprise: 0,
+    }
 
   // POST screenshot (blob) to backend
   postImageUrl(payload: any) {
-    this.http.post<any>(this.backendApiUrl + '/emotion', payload) 
-      .pipe(
-        catchError(this.handleError<FacialEmotions>('postImageUrl'))
-      )
+    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('postImageUrl'))
+    )
+    .subscribe(response => {
+      this.facialEmotionsState.anger = response.emotion.anger;
+      this.facialEmotionsState.contempt = response.emotion.contempt;
+      this.facialEmotionsState.disgust = response.emotion.disgust;
+      this.facialEmotionsState.fear = response.emotion.fear;
+      this.facialEmotionsState.happiness = response.emotion.happiness;
+      this.facialEmotionsState.neutral = response.emotion.neutral;
+      this.facialEmotionsState.sadness = response.emotion.sadness;
+      this.facialEmotionsState.surprise = response.emotion.surprise;
+    })
+  }
+
+  getFacialEmotions(): FacialEmotions {
+    return this.facialEmotionsState;
 
   }
 
