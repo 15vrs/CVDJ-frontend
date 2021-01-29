@@ -19,5 +19,12 @@ export class RoomService {
       })
   }
 
+  getRoomId() {
+    this.backend.getRoomId()
+    .subscribe(response => {
+      this.roomState.roomId = response;
+    })
+  }
+
 
 }

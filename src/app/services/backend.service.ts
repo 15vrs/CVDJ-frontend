@@ -14,25 +14,18 @@ export class BackendService {
   constructor(private http: HttpClient) { }
 
 
-  // GET emotion data from backend - this may change to PUT
+  // POST emotion data from backend - this may change to PUT
   getFacialEmotions(): Observable<faceAttributes> {
     return this.http.post<faceAttributes>(this.backendApiUrl + '/emotion',{ responseType: 'text' })
        .pipe(
-         retry(3),
          catchError(this.handleError<faceAttributes>('getFacialEmotions'))
        )
-    // return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
-    //   .pipe(
-    //     retry(3),
-    //     catchError(this.handleError<FacialEmotions>('getFacialEmotions'))
-    //   )
   }
 
   // PUT screenshot (blob) to backend
   putImageUrl(payload: Blob): void {
     this.http.put<Blob>(this.backendApiUrl + '/face', payload)
       .pipe(
-        retry(3),
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
       )
       .subscribe()
@@ -43,8 +36,14 @@ export class BackendService {
   getUserId(): Observable<string> {
     return this.http.get<string>(this.backendApiUrl + '/userId')
     .pipe(
-      retry(3),
-      catchError(this.handleError<string>('getFacialEmotions'))
+      catchError(this.handleError<string>('getUserId'))
+    )
+  }
+
+  getRoomId(): Observable<string> {
+    return this.http.get<string>(this.backendApiUrl + '/roomId')
+    .pipe(
+      catchError(this.handleError<string>('getRoomId'))
     )
   }
 
