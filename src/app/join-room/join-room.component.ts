@@ -13,8 +13,8 @@ export class JoinRoomComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
-    this.backend.getUserId(); // add BE call
+  onClick(roomId: string) {
+    this.backend.joinRoom(roomId); // add BE call
   }
 
 }

@@ -13,8 +13,4 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick() {
-    this.backend.getUserId();
-  }
-
 }

@@ -1,6 +1,7 @@
 export class Room {
   userId: string;
   roomId?: string;
+  playlistUri?: string;
 }
 
 export class Camera {

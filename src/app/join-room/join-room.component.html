@@ -4,12 +4,12 @@
       <h1>Computer Vision DJ</h1>
       <p>Please enter your room code here:</p>
       <div class="input-group mb-3">
-        <input type="text" class="form-control" id="sessionId" placeholder="Room ID">
+        <input type="text" class="form-control" #roomId placeholder="Room ID">
         <span class="input-group-append">
           <button 
           type="submit" 
           class="btn btn-primary"
-          (click)="onClick()"
+          (click)="onClick(roomId.value)"
           routerLink="/connect">
           Join Room
           </button>

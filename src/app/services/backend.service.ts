@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { faceAttributes, FacialEmotions } from '../models';
+import { faceAttributes, FacialEmotions, Room } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,10 @@ export class BackendService {
       surprise: 0,
     }
 
+    private roomState: Room = {
+      userId: null,
+    }
+
   // POST screenshot (blob) to backend
   postImageUrl(payload: any) {
     this.http.post<any>(this.backendApiUrl + '/emotion', payload)
@@ -49,18 +53,20 @@ export class BackendService {
 
   getFacialEmotions(): FacialEmotions {
     return this.facialEmotionsState;
-
   }
 
   // where to put userId in subsequent requests? 
   // can't send GET request with body so may have to send in header or use PUT
-  getUserId() {
-    this.http.get<string>(this.backendApiUrl + '/userId')
+  joinRoom(roomId: string) {
+    this.http.post<any>(this.backendApiUrl + '/join/' + roomId, {})
     .pipe(
       catchError(this.handleError<string>('getUserId'))
     )
     .subscribe(response => {
-      // parse response to get userID
+      // parse response to get room info
+      this.roomState.userId = response.userId;
+      this.roomState.roomId = response.roomId;
+      this.roomState.playlistUri = response.playlistUri;
     })
   }
 
@@ -84,7 +90,7 @@ export class BackendService {
   getRoomId() {
     this.http.get<string>(this.backendApiUrl + '/create_room')
     .pipe(
-      catchError(this.handleError<string>('getUserId'))
+      catchError(this.handleError<string>('getRoomUserId'))
     )
     .subscribe(response => {
       // parse response to get roomID, userID, playlist URI before calling main page
