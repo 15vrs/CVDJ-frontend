@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { interval, Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { FacialEmotions } from '../models';
 
@@ -54,11 +54,18 @@ export class BackendService {
   }
 
   // method allows user to login to Spotify via backend service
+  // change to post and send a Frontend ID 
   getLogin() {
     this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
     .subscribe(response => {
-      window.open(response.url, "_blank");
-      catchError(this.handleError<string>('getRoomId'));
+      let popup = window.open(response.url, "_blank")
+      popup.addEventListener( "message", event => {
+        console.log("popup", event)
+      });
+      setTimeout(() => {
+        popup.close();
+      }, 2000);
+      catchError(this.handleError<string>('login'));
     })
   }
 
