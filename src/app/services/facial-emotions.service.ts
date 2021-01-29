@@ -22,14 +22,14 @@ export class FacialEmotionsService {
   private getFacialEmotions() {
     this.backend.getFacialEmotions()
       .subscribe(response => {
-        this.facialEmotionsState.anger = response.anger;
-        this.facialEmotionsState.contempt = response.contempt;
-        this.facialEmotionsState.disgust = response.disgust;
-        this.facialEmotionsState.fear = response.fear;
-        this.facialEmotionsState.happiness = response.happiness;
-        this.facialEmotionsState.neutral = response.neutral;
-        this.facialEmotionsState.sadness = response.sadness;
-        this.facialEmotionsState.surprise = response.surprise;
+        this.facialEmotionsState.anger = response.emotion.anger;
+        this.facialEmotionsState.contempt = response.emotion.contempt;
+        this.facialEmotionsState.disgust = response.emotion.disgust;
+        this.facialEmotionsState.fear = response.emotion.fear;
+        this.facialEmotionsState.happiness = response.emotion.happiness;
+        this.facialEmotionsState.neutral = response.emotion.neutral;
+        this.facialEmotionsState.sadness = response.emotion.sadness;
+        this.facialEmotionsState.surprise = response.emotion.surprise;
       });
   }
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval, Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { FacialEmotions } from '../models';
+import { faceAttributes, FacialEmotions } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +12,28 @@ export class BackendService {
 
   // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
   private backendApiUrl = 'http://127.0.0.1:5000'; //test with local BE
+  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
     private router: Router) { }
 
 
-  // GET emotion data from backend - may not need this, emotions returned as part of PUT /emotion
-  getFacialEmotions(): Observable<FacialEmotions> {
-    return this.http.get<FacialEmotions>(this.backendApiUrl + '/emotions')
-      .pipe(
-        catchError(this.handleError<FacialEmotions>('getFacialEmotions'))
-      )
+  // POST emotion data from backend - this may change to PUT
+  getFacialEmotions(): Observable<faceAttributes> {
+    return this.http.post<faceAttributes>(this.backendApiUrl + '/emotion',{ responseType: 'text' })
+       .pipe(
+         catchError(this.handleError<faceAttributes>('getFacialEmotions'))
+       )
   }
 
   // POST screenshot (blob) to backend
   postImageUrl(payload: any) {
-    console.log(payload)
     this.http.post<any>(this.backendApiUrl + '/emotion', payload) 
       .pipe(
         catchError(this.handleError<FacialEmotions>('postImageUrl'))
       )
-      .subscribe()
+
   }
 
   // where to put userId in subsequent requests? 

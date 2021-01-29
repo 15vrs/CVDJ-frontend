@@ -8,6 +8,10 @@ export class Camera {
   imageUrl?: Blob;
 }
 
+export class faceAttributes {
+  emotion: FacialEmotions;
+}
+
 export class FacialEmotions {
   anger: any;
   contempt: any;
