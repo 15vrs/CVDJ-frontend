@@ -55,18 +55,11 @@ export class BackendService {
 
   // method allows user to login to Spotify via backend service
   // change to post and send a Frontend ID 
-  getLogin() {
-    this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
-    .subscribe(response => {
-      let popup = window.open(response.url, "_blank")
-      popup.addEventListener( "message", event => {
-        console.log("popup", event)
-      });
-      setTimeout(() => {
-        popup.close();
-      }, 2000);
-      catchError(this.handleError<string>('login'));
-    })
+  getLogin(): Observable<any> {
+    return this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
+    .pipe(
+      catchError(this.handleError<string>('login'))
+    )
   }
 
   getRoomId() {
@@ -75,7 +68,8 @@ export class BackendService {
       catchError(this.handleError<string>('getUserId'))
     )
     .subscribe(response => {
-      // parse response to get roomID
+      // parse response to get roomID, userID, playlist URI before calling main page
+      this.router.navigateByUrl('/main');
     })
   }
 

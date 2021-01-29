@@ -15,7 +15,6 @@ export class ConnectComponent implements OnInit {
   
   constructor(
     private cameraService: CameraService,
-    private backend: BackendService,
     private router: Router) { }
   
   ngOnInit(): void {
