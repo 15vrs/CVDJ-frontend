@@ -9,7 +9,7 @@ import { faceAttributes, FacialEmotions } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //test with fake server
+  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(private http: HttpClient) { }
 
