@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { interval, Observable, of } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { FacialEmotions } from '../models';
@@ -12,7 +13,9 @@ export class BackendService {
   // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
   private backendApiUrl = 'http://127.0.0.1:5000'; //test with local BE
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient, 
+    private router: Router) { }
 
 
   // GET emotion data from backend - may not need this, emotions returned as part of PUT /emotion

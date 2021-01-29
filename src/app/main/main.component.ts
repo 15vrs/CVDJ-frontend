@@ -8,6 +8,7 @@ import { MusicService } from '../services/music.service';
 })
 export class MainComponent implements OnInit {
 
+  loading: boolean = true;
   description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   currentAlbumArt: string;
   
