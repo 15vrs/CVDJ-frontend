@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { faceAttributes, FacialEmotions, Room } from '../models';
+import { FacialEmotions, Room } from '../models';
 
 @Injectable({
   providedIn: 'root'
