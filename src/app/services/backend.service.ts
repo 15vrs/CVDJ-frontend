@@ -10,9 +10,9 @@ import { faceAttributes, FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local BE
-  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
+  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
@@ -52,7 +52,7 @@ export class BackendService {
   joinRoom(roomId: string) {
     this.http.post<any>(this.backendApiUrl + '/join/' + roomId, {})
     .pipe(
-      catchError(this.handleError<string>('getUserId'))
+      catchError(this.handleError<string>('joinRoom'))
     )
     .subscribe(response => {
       this.parseRoomInfo(response);
@@ -78,7 +78,7 @@ export class BackendService {
 
   // call to create room [TEMP] with hardcoded userID
   getRoomId() {
-    this.http.get<any>(this.backendApiUrl + '/create_room')
+    this.http.post<any>(this.backendApiUrl + '/create_room', {})
     .pipe(
       catchError(this.handleError<string>('getRoomInfo'))
     )
