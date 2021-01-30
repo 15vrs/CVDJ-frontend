@@ -10,28 +10,32 @@ import { faceAttributes, FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  private backendApiUrl = 'http://127.0.0.1:5000'; //test with local BE
+  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local BE
   // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
     private router: Router) { }
 
-    private facialEmotionsState: FacialEmotions = {
-      anger: 0,
-      contempt: 0,
-      disgust: 0,
-      fear: 0,
-      happiness: 0,
-      neutral: 0,
-      sadness: 0,
-      surprise: 0,
-    }
+  private facialEmotionsState: FacialEmotions = {
+    anger: 0,
+    contempt: 0,
+    disgust: 0,
+    fear: 0,
+    happiness: 0,
+    neutral: 0,
+    sadness: 0,
+    surprise: 0,
+  }
 
-    private roomState: Room = {
-      userId: null,
-    }
+  private roomState: Room = {
+    userId: null,
+  }
+
+  /**
+   * CALLS TO DOWNSTREAM
+   */
 
   // POST screenshot (blob) to backend
   postImageUrl(payload: any) {
@@ -40,33 +44,18 @@ export class BackendService {
       catchError(this.handleError<FacialEmotions>('postImageUrl'))
     )
     .subscribe(response => {
-      this.facialEmotionsState.anger = response.emotion.anger;
-      this.facialEmotionsState.contempt = response.emotion.contempt;
-      this.facialEmotionsState.disgust = response.emotion.disgust;
-      this.facialEmotionsState.fear = response.emotion.fear;
-      this.facialEmotionsState.happiness = response.emotion.happiness;
-      this.facialEmotionsState.neutral = response.emotion.neutral;
-      this.facialEmotionsState.sadness = response.emotion.sadness;
-      this.facialEmotionsState.surprise = response.emotion.surprise;
+      this.parseEmotionInfo(response);
     })
   }
 
-  getFacialEmotions(): FacialEmotions {
-    return this.facialEmotionsState;
-  }
-
-  // where to put userId in subsequent requests? 
-  // can't send GET request with body so may have to send in header or use PUT
+  // POST roomID to join, get full info block back
   joinRoom(roomId: string) {
     this.http.post<any>(this.backendApiUrl + '/join/' + roomId, {})
     .pipe(
       catchError(this.handleError<string>('getUserId'))
     )
     .subscribe(response => {
-      // parse response to get room info
-      this.roomState.userId = response.userId;
-      this.roomState.roomId = response.roomId;
-      this.roomState.playlistUri = response.playlistUri;
+      this.parseRoomInfo(response);
     })
   }
 
@@ -78,7 +67,7 @@ export class BackendService {
     )
   }
 
-  // method allows user to login to Spotify via backend service
+  // Login to Spotify via backend service
   // change to post and send a Frontend ID 
   getLogin(): Observable<any> {
     return this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
@@ -87,15 +76,50 @@ export class BackendService {
     )
   }
 
+  // call to create room [TEMP] with hardcoded userID
   getRoomId() {
-    this.http.get<string>(this.backendApiUrl + '/create_room')
+    this.http.get<any>(this.backendApiUrl + '/create_room')
     .pipe(
-      catchError(this.handleError<string>('getRoomUserId'))
+      catchError(this.handleError<string>('getRoomInfo'))
     )
     .subscribe(response => {
       // parse response to get roomID, userID, playlist URI before calling main page
+      // this.parseRoomInfo(response);
       this.router.navigateByUrl('/main');
     })
+  }
+
+  /**
+   * PARSE DOWNSTREAM RESPONSE
+   */
+
+  private parseRoomInfo(response) {
+    this.roomState.userId = response.userId;
+    this.roomState.roomId = response.roomId;
+    this.roomState.playlistUri = response.playlistUri;
+  }
+
+  private parseEmotionInfo(response) {
+    this.facialEmotionsState.anger = response.emotion.anger;
+    this.facialEmotionsState.contempt = response.emotion.contempt;
+    this.facialEmotionsState.disgust = response.emotion.disgust;
+    this.facialEmotionsState.fear = response.emotion.fear;
+    this.facialEmotionsState.happiness = response.emotion.happiness;
+    this.facialEmotionsState.neutral = response.emotion.neutral;
+    this.facialEmotionsState.sadness = response.emotion.sadness;
+    this.facialEmotionsState.surprise = response.emotion.surprise;
+  }
+
+  /**
+   * METHODS TO ACCESS STATES
+   */
+
+  getFacialEmotions(): FacialEmotions {
+    return this.facialEmotionsState;
+  }
+
+  getRoomInfo(): Room {
+    return this.roomState;
   }
 
   /**
