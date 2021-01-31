@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomService } from '../services/room.service';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'landing',
@@ -8,13 +8,9 @@ import { RoomService } from '../services/room.service';
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private room: RoomService) { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
-  }
-
-  onClick() {
-    this.room.getUserId();
   }
 
 }

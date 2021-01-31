@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SongInfoComponent implements OnInit {
   @Input() heading: string;
   @Input() description: string;
+  @Input() imgUrl: string;
+
   constructor() { }
 
   ngOnInit(): void {

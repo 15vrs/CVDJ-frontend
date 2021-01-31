@@ -1,20 +1,30 @@
 <div class="container main">
-  <div class="row">
-    <div class="col-md-4">
-      <song-info
-      [heading]="'Last played'"
-      [description]="description"></song-info>
-    </div>
-    <div class="col-md-4">
-      <song-info
-      [heading]="'Current song'"
-      [description]="description"></song-info>
-    </div>
-    <div class="col-md-4">
-      <song-info
-      [heading]="'Up next'"
-      [description]="description"></song-info>
+  <div *ngIf="loading; else elseBlock" class="d-flex justify-content-center">
+    <div class="spinner-border text-light" 
+      role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
+
+  <ng-template #elseBlock>
+    <div class="row">
+      <div class="col-md-4">
+        <song-info
+        [heading]="'Last played'"
+        [description]="description"></song-info>
+      </div>
+      <div class="col-md-4">
+        <song-info
+        [heading]="'Current song'"
+        [description]="description"
+        [imgUrl]="currentAlbumArt"></song-info>
+      </div>
+      <div class="col-md-4">
+        <song-info
+        [heading]="'Up next'"
+        [description]="description"></song-info>
+      </div>
+    </div>
+  </ng-template>
 </div>
 <music-player></music-player>

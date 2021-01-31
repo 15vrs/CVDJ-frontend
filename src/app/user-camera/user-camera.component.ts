@@ -21,7 +21,10 @@ export class UserCameraComponent implements OnInit {
     this.cameraService.connectClicked
       .subscribe(event => {
         this.startCamera();
-        this.takeSnapshot();
+        // take snapshots every 20s
+        interval(20000).subscribe(() => {
+          this.takeSnapshot();
+        })
       })
     // when revisiting page, check if webcam was previously connected
     this.getCameraState();
@@ -60,25 +63,21 @@ export class UserCameraComponent implements OnInit {
   }
 
   takeSnapshot(): void {
-    // take snapshots every 20s
-    interval(20000).subscribe(() => {
-      console.log("taking snapshot")
-      const _video = this.videoElement.nativeElement;
-      const dimensions = {width: 640, height: 480};
-      if (_video.videoWidth) {
-        dimensions.width = _video.videoWidth;
-        dimensions.height = _video.videoHeight;
-      }
-      const _canvas = this.canvas.nativeElement;
-       _canvas.width = dimensions.width;
-      _canvas.height = dimensions.height;
-  
-      // paint snapshot image to canvas
-      const context2d = _canvas.getContext('2d');
-      context2d.drawImage(_video, 0, 0);
-  
-      // create blob to send to the backend
-      _canvas.toBlob(blob => this.cameraService.updateImageUrl(blob),'image/jpeg', 0.92);
-    })
+    const _video = this.videoElement.nativeElement;
+    const dimensions = {width: 640, height: 480};
+    if (_video.videoWidth) {
+      dimensions.width = _video.videoWidth;
+      dimensions.height = _video.videoHeight;
+    }
+    const _canvas = this.canvas.nativeElement;
+     _canvas.width = dimensions.width;
+    _canvas.height = dimensions.height;
+
+    // paint snapshot image to canvas
+    const context2d = _canvas.getContext('2d');
+    context2d.drawImage(_video, 0, 0);
+
+    // create blob to send to the backend
+    _canvas.toBlob(blob => this.cameraService.updateImageUrl(blob),'image/jpeg', 0.92);
   }
 }

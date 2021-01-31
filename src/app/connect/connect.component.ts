@@ -1,7 +1,6 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
-import { Camera } from '../models';
 import { CameraService } from '../services/camera.service';
 
 @Component({
@@ -25,7 +24,7 @@ export class ConnectComponent implements OnInit {
     this.cameraService.connectCameraClicked();
     interval(3000).subscribe(() => {
       this.router.navigateByUrl('/main');
-    })
+    });
   }
 
 }

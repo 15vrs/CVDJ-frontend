@@ -1,0 +1,13 @@
+{
+  "request": {
+      "method": "GET",
+      "url": "/albumArt"
+  },
+  "response": {
+      "status": 200,
+      "body": "https://www.udiscovermusic.com/wp-content/uploads/2017/08/Pink-Floyd-Dark-Side-Of-The-Moon.jpg",
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  }
+}
