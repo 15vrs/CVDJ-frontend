@@ -22,9 +22,10 @@
         [heading]="'Up next'"
         [description]="description"></song-info>
       </div>
-    </div> -->
+    </div>
+    <music-player></music-player> -->
     <iframe 
-      src="https://open.spotify.com/embed/playlist/0YOqJAoYs2dJk6KzrGJc5x" 
+      [src]="playlistUrl"
       width="600" 
       height="380" 
       frameborder="0" 
@@ -32,4 +33,3 @@
       allow="encrypted-media"></iframe>
   </ng-template>
 </div>
-<music-player></music-player>

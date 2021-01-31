@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Room } from '../models';
 import { BackendService } from '../services/backend.service';
 import { MusicService } from '../services/music.service';
@@ -10,24 +11,27 @@ import { MusicService } from '../services/music.service';
 })
 export class MainComponent implements OnInit {
 
-  loading: boolean = true;
+  @Input() loading: boolean = true;
   description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   currentAlbumArt: string;
   roomInfo: Room;
+  baseUrl = "https://open.spotify.com/embed/playlist/";
+  playlistUrl: SafeResourceUrl;
   
   constructor(
     private musicService: MusicService,
-    private backend: BackendService) { }
+    private backend: BackendService,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     // this.getAlbumArt()
-    
+
     this.roomInfo = this.backend.getRoomInfo();
     // once FE receives room info, stop loading
     if (this.roomInfo.userId != null) {
       this.loading = false;
+      this.playlistUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.roomInfo.playlistUri);
     }
-
   }
 
   async getAlbumArt() {

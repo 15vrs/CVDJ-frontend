@@ -30,7 +30,7 @@ export class BackendService {
   }
 
   private roomState: Room = {
-    userId: null,
+    userId: undefined,
   }
 
   /**
