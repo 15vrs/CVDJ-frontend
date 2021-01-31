@@ -34,9 +34,9 @@ export class MainComponent implements OnInit {
     }
   }
 
-  async getAlbumArt() {
-    this.currentAlbumArt = this.musicService.getCurrentlyPlaying();
-    console.log(this.currentAlbumArt)
-  }
+  // async getAlbumArt() {
+  //   this.currentAlbumArt = this.musicService.getCurrentlyPlaying();
+  //   console.log(this.currentAlbumArt)
+  // }
 
 }

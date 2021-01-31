@@ -15,17 +15,17 @@ export class MusicService {
 
   constructor(private backend: BackendService) { }
 
-  getCurrentlyPlaying(): string {
-    this.updateAlbumArt;
-    return this.musicState.currentlyPlaying;
-  }
+  // getCurrentlyPlaying(): string {
+  //   this.updateAlbumArt;
+  //   return this.musicState.currentlyPlaying;
+  // }
 
-  updateAlbumArt(): void {
-    console.log("update album art music service")
-    this.backend.getAlbumArt()
-      .subscribe(response => {
-        this.musicState.currentlyPlaying = response;
-        console.log(response)
-      })
-  }
+  // updateAlbumArt(): void {
+  //   console.log("update album art music service")
+  //   this.backend.getAlbumArt()
+  //     .subscribe(response => {
+  //       this.musicState.currentlyPlaying = response;
+  //       console.log(response)
+  //     })
+  // }
 }
