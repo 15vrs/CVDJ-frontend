@@ -76,7 +76,7 @@ export class BackendService {
     )
   }
 
-  // call to create room [TEMP] with hardcoded userID
+  // call to create room with [TODO] frontend ID
   getRoomId() {
     this.http.post<any>(this.backendApiUrl + '/create_room', {})
     .pipe(
@@ -84,8 +84,7 @@ export class BackendService {
     )
     .subscribe(response => {
       // parse response to get roomID, userID, playlist URI before calling main page
-      // this.parseRoomInfo(response);
-      this.router.navigateByUrl('/main');
+      this.parseRoomInfo(response);
     })
   }
 

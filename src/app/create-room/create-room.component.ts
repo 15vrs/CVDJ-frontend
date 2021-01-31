@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BackendService } from '../services/backend.service';
 
 @Component({
@@ -8,25 +9,25 @@ import { BackendService } from '../services/backend.service';
 })
 export class CreateRoomComponent implements OnInit {
 
-  constructor(private backend: BackendService) { }
+  constructor(
+    private backend: BackendService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  onClick() {
+ async onClick() {
     this.backend.getLogin()
     .subscribe(response => {
-      let popup = window.open(response.url, "_blank")
-      popup.addEventListener( "message", event => {
-        console.log("popup", event)
-      });
+      let popup = window.open(response.url, "_blank");
       setTimeout(() => {
         popup.close();
       }, 2000); // close after successful login instead of 2s
-      this.backend.getRoomId();
+      // navigate to connect page without reloading
+      this.router.navigate(['/connect']);
     }); 
-    // show loading spinner before calling the BE for more info and loading the main page
-    // after successful login, we should auto join the room and navigate user to main page
+    // call BE to get additional info
+    this.backend.getRoomId(); 
   }
 
 }
