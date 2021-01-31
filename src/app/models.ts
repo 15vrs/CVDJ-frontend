@@ -1,11 +1,16 @@
 export class Room {
   userId: string;
   roomId?: string;
+  playlistUri?: string;
 }
 
 export class Camera {
   cameraConnected: boolean;
   imageUrl?: Blob;
+}
+
+export class faceAttributes {
+  emotion: FacialEmotions;
 }
 
 export class FacialEmotions {
@@ -22,7 +27,7 @@ export class FacialEmotions {
 export class Music {
   playing: boolean;
   previouslyPlayed?: string;
-  currentlyPlayed?: string;
+  currentlyPlaying?: string;
   upNext?: string;
   skipForward: boolean;
   skipBackward: boolean;

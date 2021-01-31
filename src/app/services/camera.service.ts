@@ -26,7 +26,7 @@ export class CameraService {
 
   updateImageUrl(blob: Blob): void {
     this.cameraState.imageUrl = blob;
-    this.backend.putImageUrl(blob);
+    this.backend.postImageUrl(blob);
   }
 
   connectCameraClicked() {

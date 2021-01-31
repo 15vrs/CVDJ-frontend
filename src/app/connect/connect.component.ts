@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { Camera } from '../models';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 import { CameraService } from '../services/camera.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class ConnectComponent implements OnInit {
   @Output() connectClick = new EventEmitter<boolean>();
   cameraConnected: boolean;
   
-  constructor(private cameraService: CameraService) { }
+  constructor(
+    private cameraService: CameraService,
+    private router: Router) { }
   
   ngOnInit(): void {
     this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
@@ -19,6 +22,9 @@ export class ConnectComponent implements OnInit {
 
   onClick() {
     this.cameraService.connectCameraClicked();
+    interval(3000).subscribe(() => {
+      this.router.navigateByUrl('/main');
+    });
   }
 
 }

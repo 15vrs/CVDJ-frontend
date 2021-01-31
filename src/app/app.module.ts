@@ -14,6 +14,8 @@ import { SongInfoComponent } from './song-info/song-info.component';
 import { EmotionModalComponent } from './emotion-modal/emotion-modal.component';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { UserCameraComponent } from './user-camera/user-camera.component';
+import { JoinRoomComponent } from './join-room/join-room.component';
+import { CreateRoomComponent } from './create-room/create-room.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { UserCameraComponent } from './user-camera/user-camera.component';
     SongInfoComponent,
     EmotionModalComponent,
     MusicPlayerComponent,
-    UserCameraComponent
+    UserCameraComponent,
+    JoinRoomComponent,
+    CreateRoomComponent
   ],
   imports: [
     BrowserModule,

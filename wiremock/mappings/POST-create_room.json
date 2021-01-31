@@ -1,0 +1,17 @@
+{
+  "request": {
+      "method": "POST",
+      "url": "/create_room"
+  },
+  "response": {
+      "status": 200,
+      "jsonBody": {
+        "userId": "user1",
+        "roomId": "room1",
+        "playlistUri": "asdfghjkl"
+      },
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  }
+}

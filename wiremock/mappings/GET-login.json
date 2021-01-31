@@ -1,11 +1,10 @@
 {
   "request": {
       "method": "GET",
-      "url": "/userId"
+      "url": "/login"
   },
   "response": {
       "status": 200,
-      "body": "123456",
       "headers": {
           "Content-Type": "application/json"
       }

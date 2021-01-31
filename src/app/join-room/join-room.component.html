@@ -1,0 +1,20 @@
+<div class="container join">
+  <div class="row">
+    <div class="col">
+      <h1>Computer Vision DJ</h1>
+      <p>Please enter your room code here:</p>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" #roomId placeholder="Room ID">
+        <span class="input-group-append">
+          <button 
+          type="submit" 
+          class="btn btn-primary"
+          (click)="onClick(roomId.value)"
+          routerLink="/connect">
+          Join Room
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

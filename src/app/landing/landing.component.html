@@ -1,22 +1,32 @@
 <div class="container landing">
   <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h2>Computer Vision DJ</h2>
-      <h3>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. Morbi tristique senectus et netus et.
-      </h3>
+    <div class="col">
+      <h1>Computer Vision DJ</h1>
       <div class="row">
-        <div class="col-md-6">
-          <input type="text" class="form-control" id="sessionId" placeholder="Room/Session ID">
+        <div class="col-md-8">
+          <p>If you're starting a new room, click on <b>Create Room</b> to login to Spotify.</p>  
         </div>
-        <div class="col-md-6 text-md-right">
+        <div class="col-md-4 text-right">
           <button 
           type="submit" 
           class="btn btn-primary"
-          (click)="onClick()"
-          routerLink="/connect">
-          Join Room/Session
-        </button>
+          routerLink="/create">
+          Create Room
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <p>If you already know your room code, click on <b>Join Room</b> and start listening!</p>
+        </div>
+        <div class="col-md-4 text-right">
+          <button 
+          type="submit" 
+          class="btn btn-primary"
+          routerLink="/join">
+          Join Room
+          </button>
+        </div>
       </div>
     </div>
   </div>
