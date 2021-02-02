@@ -9,7 +9,11 @@
 
 ## Run with local backend
 
-In the backend repo, run `python -m flask run`. Change any backend endpoints to `http://localhost:8080`. Run this application.
+In the backend repo, run `python -m flask run`. Change any backend endpoints to `http://127.0.0.1:5000`. Run this application.
+
+## Run with wiremock
+
+In a new terminal, run `npm run wiremock`. Change any backend endpoints to `http://localhost:8080`. Run this application.
 
 
 ## Code scaffolding
