@@ -10,9 +10,9 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
   // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
-  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
@@ -30,7 +30,7 @@ export class BackendService {
   }
 
   private roomState: Room = {
-    userId: null,
+    userId: undefined,
   }
 
   /**
@@ -60,12 +60,12 @@ export class BackendService {
   }
 
   // scaffold getting an image from URL
-  getAlbumArt(): Observable<string> {
-    return this.http.get<string>(this.backendApiUrl + '/albumArt')
-    .pipe(
-      catchError(this.handleError<string>('getAlbumArt'))
-    )
-  }
+  // getAlbumArt(): Observable<string> {
+  //   return this.http.get<string>(this.backendApiUrl + '/albumArt')
+  //   .pipe(
+  //     catchError(this.handleError<string>('getAlbumArt'))
+  //   )
+  // }
 
   // Login to Spotify via backend service
   // change to post and send a Frontend ID 
@@ -76,7 +76,7 @@ export class BackendService {
     )
   }
 
-  // call to create room [TEMP] with hardcoded userID
+  // call to create room with [TODO] frontend ID
   getRoomId() {
     this.http.post<any>(this.backendApiUrl + '/create_room', {})
     .pipe(
@@ -84,8 +84,7 @@ export class BackendService {
     )
     .subscribe(response => {
       // parse response to get roomID, userID, playlist URI before calling main page
-      // this.parseRoomInfo(response);
-      this.router.navigateByUrl('/main');
+      this.parseRoomInfo(response);
     })
   }
 
