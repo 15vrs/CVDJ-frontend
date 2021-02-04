@@ -10,8 +10,8 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
+  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
   // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
@@ -69,16 +69,26 @@ export class BackendService {
 
   // Login to Spotify via backend service
   // change to post and send a Frontend ID 
-  getLogin(): Observable<any> {
-    return this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
+  // getLogin(): Observable<any> {
+  //   return this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
+  //   .pipe(
+  //     catchError(this.handleError<string>('login'))
+  //   )
+  // }
+  getTokens(url): Observable<any> {
+    // var id = this.http.get(this.backendApiUrl + '/callback/'/* + url*/);
+    return this.http.get<any>(this.backendApiUrl + '/callback/' + url, {})
     .pipe(
       catchError(this.handleError<string>('login'))
     )
+    // .subscribe(response => {
+    //   console.log(response);
+    // })
   }
 
   // call to create room with [TODO] frontend ID
-  getRoomId() {
-    this.http.post<any>(this.backendApiUrl + '/create_room', {})
+  getRoomId(id) {
+    this.http.post<any>(this.backendApiUrl + '/create_room/' + id, {})
     .pipe(
       catchError(this.handleError<string>('getRoomInfo'))
     )

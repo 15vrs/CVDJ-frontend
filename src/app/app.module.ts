@@ -16,6 +16,7 @@ import { MusicPlayerComponent } from './music-player/music-player.component';
 import { UserCameraComponent } from './user-camera/user-camera.component';
 import { JoinRoomComponent } from './join-room/join-room.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CreateRoomComponent } from './create-room/create-room.component';
     MusicPlayerComponent,
     UserCameraComponent,
     JoinRoomComponent,
-    CreateRoomComponent
+    CreateRoomComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
