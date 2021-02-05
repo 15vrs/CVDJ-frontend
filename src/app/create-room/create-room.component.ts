@@ -9,24 +9,19 @@ import { BackendService } from '../services/backend.service';
 })
 export class CreateRoomComponent implements OnInit {
 
-  constructor(
-    private backend: BackendService,
-    private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   login() {
+    // TODO: update redirect_uri to final url
     var url = 'https://accounts.spotify.com/authorize?client_id=ce5b366904544b58beb4a235b44ffc6c' + 
     '&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fcallback%2F' + 
     '&scope=user-read-playback-state+user-modify-playback-state+streaming+user-read-email' + 
     '+user-read-private+playlist-modify-private+playlist-modify-public';
 
     window.open(url, '_self');
-  }
-
-  async onClick() {
-    this.login();
   }
 
 }

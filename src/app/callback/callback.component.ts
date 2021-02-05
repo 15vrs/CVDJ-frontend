@@ -11,7 +11,6 @@ export class CallbackComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        console.log(window.location.search);
         this.backend.getTokens(window.location.search) 
         this.router.navigate(['/connect']);
     }

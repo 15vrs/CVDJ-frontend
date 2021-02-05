@@ -69,10 +69,10 @@ export class BackendService {
 
   // Login to Spotify via backend service
 
-  getTokens(url) {
+  getTokens(url: string) {
     this.http.get<any>(this.backendApiUrl + '/callback/' + url, {})
     .pipe(
-      catchError(this.handleError<string>('login'))
+      catchError(this.handleError<string>('getLoginInfo'))
     )
     .subscribe(response => {
       this.roomState.userId = response;
@@ -80,8 +80,7 @@ export class BackendService {
     })
   }
 
-  // call to create room with [TODO] frontend ID
-  getRoomId(id) {
+  getRoomId(id: string) {
     this.http.get<any>(this.backendApiUrl + '/create_room/' + id, {})
     .pipe(
       catchError(this.handleError<string>('getRoomInfo'))
@@ -89,8 +88,6 @@ export class BackendService {
     .subscribe(response => {
       // parse response to get roomID, playlist URI before calling main page
       this.parseRoomInfo(response);
-      // DEMO: to prove it works
-      console.log(this.roomState)
     })
   }
 
