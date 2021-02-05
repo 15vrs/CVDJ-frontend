@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "GET",
-      "urlPattern": "/callback/([a-z]*)"
+      "urlPathPattern": "/callback/(.*)"
   },
   "response": {
       "status": 200,

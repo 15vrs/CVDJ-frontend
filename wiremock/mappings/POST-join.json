@@ -1,13 +1,13 @@
 {
   "request": {
       "method": "POST",
-      "urlPattern": "/join/([a-z]*)"
+      "urlPathPattern": "/join/(.*)"
+      
   },
   "response": {
       "status": 200,
       "jsonBody": {
         "userId": "user1",
-        "roomId": "room1",
         "playlistUri": "0YOqJAoYs2dJk6KzrGJc5x"
       },
       "headers": {
