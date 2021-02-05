@@ -1,12 +1,11 @@
 {
   "request": {
-      "method": "POST",
+      "method": "GET",
       "url": "/create_room"
   },
   "response": {
       "status": 200,
       "jsonBody": {
-        "userId": "user1",
         "roomId": "room1",
         "playlistUri": "0YOqJAoYs2dJk6KzrGJc5x"
       },
