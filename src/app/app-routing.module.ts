@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CallbackComponent } from './callback/callback.component';
 import { ConnectComponent } from './connect/connect.component';
 import { CreateRoomComponent } from './create-room/create-room.component';
 import { JoinRoomComponent } from './join-room/join-room.component';
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'create', component: CreateRoomComponent },
   { path: 'join', component: JoinRoomComponent },
   { path: 'connect', component: ConnectComponent },
-  { path: 'main', component: MainComponent }
+  { path: 'main', component: MainComponent },
+  { path: 'callback', component: CallbackComponent }
 ];
 
 @NgModule({

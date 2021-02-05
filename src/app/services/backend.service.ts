@@ -10,8 +10,8 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
+  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
   // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
@@ -68,22 +68,25 @@ export class BackendService {
   // }
 
   // Login to Spotify via backend service
-  // change to post and send a Frontend ID 
-  getLogin(): Observable<any> {
-    return this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
+
+  getTokens(url: string) {
+    this.http.get<any>(this.backendApiUrl + '/callback/' + url, {})
     .pipe(
-      catchError(this.handleError<string>('login'))
+      catchError(this.handleError<string>('getLoginInfo'))
     )
+    .subscribe(response => {
+      this.roomState.userId = response;
+      this.getRoomId(this.roomState.userId);
+    })
   }
 
-  // call to create room with [TODO] frontend ID
-  getRoomId() {
-    this.http.post<any>(this.backendApiUrl + '/create_room', {})
+  getRoomId(id: string) {
+    this.http.get<any>(this.backendApiUrl + '/create_room/' + id, {})
     .pipe(
       catchError(this.handleError<string>('getRoomInfo'))
     )
     .subscribe(response => {
-      // parse response to get roomID, userID, playlist URI before calling main page
+      // parse response to get roomID, playlist URI before calling main page
       this.parseRoomInfo(response);
     })
   }
@@ -93,7 +96,6 @@ export class BackendService {
    */
 
   private parseRoomInfo(response) {
-    this.roomState.userId = response.userId;
     this.roomState.roomId = response.roomId;
     this.roomState.playlistUri = response.playlistUri;
   }
