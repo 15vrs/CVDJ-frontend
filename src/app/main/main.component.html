@@ -1,8 +1,10 @@
-<div class="container main d-flex justify-content-center">
-  <div *ngIf="loading; else elseBlock" 
-    class="spinner-border text-light" 
-    role="status">
-    <span class="sr-only">Loading...</span>
+<div class="container main">
+  <div class="row d-flex justify-content-center">
+    <div *ngIf="loading; else elseBlock"
+      class="spinner-border text-light" 
+      role="status">
+      <span class="sr-only ">Loading...</span>
+    </div>
   </div>
   <ng-template #elseBlock>
     <!-- <div class="row">
@@ -24,12 +26,19 @@
       </div>
     </div>
     <music-player></music-player> -->
-    <iframe 
-      [src]="playlistUrl"
-      width="600" 
-      height="380" 
-      frameborder="0" 
-      allowtransparency="true" 
-      allow="encrypted-media"></iframe>
+    <div class="row d-flex justify-content-center">
+      <h1>
+        CVDJ Room Code: {{roomInfo.roomId}}
+      </h1>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <iframe 
+        [src]="playlistUrl"
+        width="600" 
+        height="380" 
+        frameborder="0" 
+        allowtransparency="true" 
+        allow="encrypted-media"></iframe>
+    </div>
   </ng-template>
 </div>

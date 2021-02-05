@@ -6,7 +6,6 @@ export class Room {
 
 export class Camera {
   cameraConnected: boolean;
-  imageUrl?: Blob;
 }
 
 export class faceAttributes {

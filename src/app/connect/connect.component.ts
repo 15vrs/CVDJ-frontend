@@ -19,9 +19,10 @@ export class ConnectComponent implements OnInit {
   ngOnInit(): void {
     this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
   }
-
+  
   onClick() {
     this.cameraService.connectCameraClicked();
+    this.cameraConnected = true;
     interval(3000).subscribe(() => {
       this.router.navigate(["/main"]);
     });
