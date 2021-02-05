@@ -9,7 +9,6 @@ import { BackendService } from './backend.service';
 export class CameraService {
   private cameraState: Camera = {
     cameraConnected: false,
-    imageUrl: undefined
   }
 
   @Output() connectClicked = new EventEmitter<boolean>();
@@ -25,7 +24,6 @@ export class CameraService {
   }
 
   updateImageUrl(blob: Blob): void {
-    this.cameraState.imageUrl = blob;
     this.backend.postImageUrl(blob);
   }
 
