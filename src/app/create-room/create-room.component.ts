@@ -27,18 +27,6 @@ export class CreateRoomComponent implements OnInit {
 
   async onClick() {
     this.login();
-    // this.backend.getLogin()
-    // .subscribe(response => {
-    //   let popup = window.open(response.url, "_blank");
-    //   setTimeout(() => {
-    //     popup.close();
-    //   }, 2000); // close after successful login instead of 2s
-    //   // navigate to connect page without reloading
-    //   console.log(popup);
-    //   this.router.navigate(['/connect']);
-    // }); 
-    // // call BE to get additional info
-    // this.backend.getRoomId(); 
   }
 
 }

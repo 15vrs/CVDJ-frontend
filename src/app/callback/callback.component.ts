@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { Router } from '@angular/router';
 import { BackendService } from '../services/backend.service';
 
 @Component({
@@ -12,19 +11,8 @@ export class CallbackComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        var id = 0;
         console.log(window.location.search);
-        this.backend.getTokens(window.location.search)
-        .subscribe(response => {
-            // id = response;
-            console.log(response);
-        })
+        this.backend.getTokens(window.location.search) 
         this.router.navigate(['/connect']);
-
-        //TODO: connect to getRoomId
-        // console.log(id);
-        // if(id != 0) {
-        //     this.backend.getRoomId(id);
-        // }
     }
 }

@@ -68,33 +68,29 @@ export class BackendService {
   // }
 
   // Login to Spotify via backend service
-  // change to post and send a Frontend ID 
-  // getLogin(): Observable<any> {
-  //   return this.http.get(this.backendApiUrl + '/login', { responseType: 'text', observe: 'response',})
-  //   .pipe(
-  //     catchError(this.handleError<string>('login'))
-  //   )
-  // }
-  getTokens(url): Observable<any> {
-    // var id = this.http.get(this.backendApiUrl + '/callback/'/* + url*/);
-    return this.http.get<any>(this.backendApiUrl + '/callback/' + url, {})
+
+  getTokens(url) {
+    this.http.get<any>(this.backendApiUrl + '/callback/' + url, {})
     .pipe(
       catchError(this.handleError<string>('login'))
     )
-    // .subscribe(response => {
-    //   console.log(response);
-    // })
+    .subscribe(response => {
+      this.roomState.userId = response;
+      this.getRoomId(this.roomState.userId);
+    })
   }
 
   // call to create room with [TODO] frontend ID
   getRoomId(id) {
-    this.http.post<any>(this.backendApiUrl + '/create_room/' + id, {})
+    this.http.get<any>(this.backendApiUrl + '/create_room/' + id, {})
     .pipe(
       catchError(this.handleError<string>('getRoomInfo'))
     )
     .subscribe(response => {
-      // parse response to get roomID, userID, playlist URI before calling main page
+      // parse response to get roomID, playlist URI before calling main page
       this.parseRoomInfo(response);
+      // DEMO: to prove it works
+      console.log(this.roomState)
     })
   }
 
@@ -103,7 +99,6 @@ export class BackendService {
    */
 
   private parseRoomInfo(response) {
-    this.roomState.userId = response.userId;
     this.roomState.roomId = response.roomId;
     this.roomState.playlistUri = response.playlistUri;
   }
