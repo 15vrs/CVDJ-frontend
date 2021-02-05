@@ -48,18 +48,27 @@ export class BackendService {
       catchError(this.handleError<FacialEmotions>('postImageUrl'))
     )
     .subscribe(response => {
-      this.parseEmotionInfo(response);
+      this.facialEmotionsState.anger = response.emotion.anger;
+      this.facialEmotionsState.contempt = response.emotion.contempt;
+      this.facialEmotionsState.disgust = response.emotion.disgust;
+      this.facialEmotionsState.fear = response.emotion.fear;
+      this.facialEmotionsState.happiness = response.emotion.happiness;
+      this.facialEmotionsState.neutral = response.emotion.neutral;
+      this.facialEmotionsState.sadness = response.emotion.sadness;
+      this.facialEmotionsState.surprise = response.emotion.surprise;
     })
   }
 
-  // POST roomID to join, get full info block back
+  // GET roomID to join, get userId and playlistID back
   joinRoom(roomId: string) {
-    this.http.post<any>(this.backendApiUrl + '/join/' + roomId, {})
+    this.http.get<any>(this.backendApiUrl + '/join/' + roomId, {})
     .pipe(
       catchError(this.handleError<string>('joinRoom'))
-    )
-    .subscribe(response => {
-      this.parseRoomInfo(response);
+      )
+      .subscribe(response => {
+        this.roomState.userId = response.userId;
+        this.roomState.roomId = roomId;
+        this.roomState.playlistUri = response.playlistUri;
     })
   }
 
@@ -91,28 +100,9 @@ export class BackendService {
     )
     .subscribe(response => {
       // parse response to get roomID, playlist URI before calling main page
-      this.parseRoomInfo(response);
+      this.roomState.roomId = response.roomId;
+      this.roomState.playlistUri = response.playlistUri;
     })
-  }
-
-  /**
-   * PARSE DOWNSTREAM RESPONSE
-   */
-
-  private parseRoomInfo(response) {
-    this.roomState.roomId = response.roomId;
-    this.roomState.playlistUri = response.playlistUri;
-  }
-
-  private parseEmotionInfo(response) {
-    this.facialEmotionsState.anger = response.emotion.anger;
-    this.facialEmotionsState.contempt = response.emotion.contempt;
-    this.facialEmotionsState.disgust = response.emotion.disgust;
-    this.facialEmotionsState.fear = response.emotion.fear;
-    this.facialEmotionsState.happiness = response.emotion.happiness;
-    this.facialEmotionsState.neutral = response.emotion.neutral;
-    this.facialEmotionsState.sadness = response.emotion.sadness;
-    this.facialEmotionsState.surprise = response.emotion.surprise;
   }
 
   /**
