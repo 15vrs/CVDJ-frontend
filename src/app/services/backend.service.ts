@@ -10,9 +10,9 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
   // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
-  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
@@ -59,17 +59,10 @@ export class BackendService {
     })
   }
 
-  // GET roomID to join, get userId and playlistID back
-  joinRoom(roomId: string) {
-    this.http.get<any>(this.backendApiUrl + '/join/' + roomId, {})
-    .pipe(
-      catchError(this.handleError<string>('joinRoom'))
-      )
-      .subscribe(response => {
-        this.roomState.userId = response.userId;
-        this.roomState.roomId = roomId;
-        this.roomState.playlistUri = response.playlistUri;
-    })
+  // GET get userId and playlistID by calling /join with roomId
+  getJoinRoom(roomId: string):  Observable<any>{
+    return this.http.get<any>(this.backendApiUrl + '/join/' + roomId, { observe: 'response' });
+    // response processed in join-room component
   }
 
   // scaffold getting an image from URL
@@ -115,6 +108,18 @@ export class BackendService {
 
   getRoomInfo(): Room {
     return this.roomState;
+  }
+
+  setRoomId(response) {
+    this.roomState.roomId = response;
+  }
+
+  setUserId(response) {
+    this.roomState.userId = response;
+  }
+
+  setPlaylistUri(response) {
+    this.roomState.playlistUri = response;
   }
 
   /**

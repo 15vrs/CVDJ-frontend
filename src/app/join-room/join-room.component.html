@@ -9,12 +9,17 @@
           <button 
           type="submit" 
           class="btn btn-primary"
-          (click)="onClick(roomId.value)"
-          routerLink="/connect">
+          (click)="onClick(roomId.value)">
           Join Room
           </button>
         </span>
       </div>
+    </div>
+  </div>
+  <div *ngIf="error">
+    <div class="alert alert-danger" role="alert">
+      The room you are trying to join does not exist. <br>
+      Would you like to <a href="/create" class="alert-link">create the room</a>?
     </div>
   </div>
 </div>

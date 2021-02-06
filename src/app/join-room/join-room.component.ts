@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { BackendService } from '../services/backend.service';
 
 @Component({
@@ -8,13 +9,30 @@ import { BackendService } from '../services/backend.service';
 })
 export class JoinRoomComponent implements OnInit {
 
-  constructor(private backend: BackendService) { }
+  error: boolean = false;
+
+  constructor(
+    private backend: BackendService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onClick(roomId: string) {
-    this.backend.joinRoom(roomId); // add BE call
+    this.backend.getJoinRoom(roomId)
+    .subscribe(
+      response => {
+        this.backend.setRoomId(roomId);
+        this.backend.setUserId(response.body.userId);
+        this.backend.setPlaylistUri(response.body.playlistUri);
+        this.router.navigate(["/connect"]);
+      },
+      error => {
+        if (error.status >= 400) {
+          this.error = true;
+        }
+      }
+    );
   }
 
 }
