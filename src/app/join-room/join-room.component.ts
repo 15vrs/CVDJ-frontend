@@ -9,7 +9,6 @@ import { BackendService } from '../services/backend.service';
 })
 export class JoinRoomComponent implements OnInit {
 
-  @ViewChild('errorAlert') errorAlert: ElementRef;
   error: boolean = false;
 
   constructor(
