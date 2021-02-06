@@ -10,9 +10,9 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = 'http://localhost:8080'; //test with wiremock
+  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
   // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
-  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 

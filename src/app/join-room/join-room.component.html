@@ -16,28 +16,10 @@
       </div>
     </div>
   </div>
-</div><ng-template #errorAlert let-modal>
-
-<ng-template #errorAlert let-modal>
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Error</h5>
-      </div>
-      <div class="modal-body">
-        The room you are trying to join does not exist. Would you like to create the room?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" aria-label="Close" (click)="modal.close()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="modalClick()">Create Room</button>
-      </div>
+  <div *ngIf="error">
+    <div class="alert alert-danger" role="alert">
+      The room you are trying to join does not exist. <br>
+      Would you like to <a href="/create" class="alert-link">create the room</a>?
     </div>
   </div>
-  <!-- <div class="modal-body static-modal">
-    <button type="button" class="close" aria-label="Close" (click)="modal.close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-    <h2 class="text-center">How CVDJ works</h2>
-    <p>CVDJ is a emotion-based song recommendation system. For each room, CVDJ determines the average user emotion as music is being played. This data is then used to pick upcoming songs.</p>
-  </div> -->
-</ng-template>
+</div>
