@@ -11,7 +11,7 @@ import { MusicService } from '../services/music.service';
 })
 export class MainComponent implements OnInit {
 
-  @Input() loading: boolean = true;
+  @Input() loading: boolean = true; // default to true so no access to random room; TODO router guards
   description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   currentAlbumArt: string;
   roomInfo: Room;

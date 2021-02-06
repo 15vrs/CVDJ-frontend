@@ -20,7 +20,9 @@ export class UserCameraComponent implements OnInit {
     // display webcam on page first time
     this.cameraService.connectClicked
       .subscribe(event => {
+        this.getCameraState();
         this.startCamera();
+
         // take snapshots every 20s
         interval(20000).subscribe(() => {
           this.takeSnapshot();

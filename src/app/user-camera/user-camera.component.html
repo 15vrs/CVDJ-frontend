@@ -1,2 +1,8 @@
 <video #video class="webcam" autoplay></video>
 <canvas #canvas class="canvas"></canvas>
+<div *ngIf="!cameraConnected">
+  <img class="webcam"
+  alt="webcam"
+  src="../../assets/images/placeholder.svg"
+  />
+</div>
