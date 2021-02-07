@@ -38,12 +38,8 @@ export class BackendService {
    */
 
   // POST screenshot (blob) to backend
-  postImageUrl(blob: any) {
-    var payload = {
-      userId: this.roomState.userId,
-      face: blob
-    };
-    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
+  postImageUrl(payload: any) {
+    this.http.post<any>(this.backendApiUrl + '/emotion/' + this.roomState.userId, payload)
     .pipe(
       catchError(this.handleError<FacialEmotions>('postImageUrl'))
     )
