@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "POST",
-      "url": "/emotion"
+      "urlPathPattern": "/emotion/([0-9]*)"
   },
   "response": {
       "status": 200,

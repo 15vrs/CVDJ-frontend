@@ -38,24 +38,20 @@ export class BackendService {
    */
 
   // POST screenshot (blob) to backend
-  postImageUrl(blob: any) {
-    var payload = {
-      userId: this.roomState.userId,
-      face: blob
-    };
-    this.http.post<any>(this.backendApiUrl + '/emotion', payload)
+  postImageUrl(payload: any) {
+    this.http.post<any>(this.backendApiUrl + '/emotion/' + this.roomState.userId, payload)
     .pipe(
       catchError(this.handleError<FacialEmotions>('postImageUrl'))
     )
     .subscribe(response => {
-      this.facialEmotionsState.anger = response.emotion.anger;
-      this.facialEmotionsState.contempt = response.emotion.contempt;
-      this.facialEmotionsState.disgust = response.emotion.disgust;
-      this.facialEmotionsState.fear = response.emotion.fear;
-      this.facialEmotionsState.happiness = response.emotion.happiness;
-      this.facialEmotionsState.neutral = response.emotion.neutral;
-      this.facialEmotionsState.sadness = response.emotion.sadness;
-      this.facialEmotionsState.surprise = response.emotion.surprise;
+      this.facialEmotionsState.anger = response.anger;
+      this.facialEmotionsState.contempt = response.contempt;
+      this.facialEmotionsState.disgust = response.disgust;
+      this.facialEmotionsState.fear = response.fear;
+      this.facialEmotionsState.happiness = response.happiness;
+      this.facialEmotionsState.neutral = response.neutral;
+      this.facialEmotionsState.sadness = response.sadness;
+      this.facialEmotionsState.surprise = response.surprise;
     })
   }
 
