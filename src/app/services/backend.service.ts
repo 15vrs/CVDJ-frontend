@@ -11,8 +11,8 @@ import { FacialEmotions, Room } from '../models';
 export class BackendService {
 
   // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
-  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
+  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
@@ -44,14 +44,15 @@ export class BackendService {
       catchError(this.handleError<FacialEmotions>('postImageUrl'))
     )
     .subscribe(response => {
-      this.facialEmotionsState.anger = response.anger;
-      this.facialEmotionsState.contempt = response.contempt;
-      this.facialEmotionsState.disgust = response.disgust;
-      this.facialEmotionsState.fear = response.fear;
-      this.facialEmotionsState.happiness = response.happiness;
-      this.facialEmotionsState.neutral = response.neutral;
-      this.facialEmotionsState.sadness = response.sadness;
-      this.facialEmotionsState.surprise = response.surprise;
+      var data = JSON.parse(response.replace(/'/g, '"'));
+      this.facialEmotionsState.anger = data.anger;
+      this.facialEmotionsState.contempt = data.contempt;
+      this.facialEmotionsState.disgust = data.disgust;
+      this.facialEmotionsState.fear = data.fear;
+      this.facialEmotionsState.happiness = data.happiness;
+      this.facialEmotionsState.neutral = data.neutral;
+      this.facialEmotionsState.sadness = data.sadness;
+      this.facialEmotionsState.surprise = data.surprise;
     })
   }
 
