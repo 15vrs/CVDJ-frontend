@@ -4,6 +4,12 @@
   /* mirror output */
   transform: scale(-1, 1); 
 }
-.canvas {
+/* .canvas {
+  display: none;
+} */
+.show {
+  display: block;
+}
+.hide {
   display: none;
 }
