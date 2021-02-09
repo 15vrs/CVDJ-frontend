@@ -31,7 +31,7 @@ export class UserCameraComponent implements OnInit {
         this.getCameraState();
         this.startCamera();
         // take snapshots every 20s
-        interval(20000).subscribe(() => {
+        interval(15000).subscribe(() => {
           this.takeSnapshot();
         })
       })
@@ -63,20 +63,15 @@ export class UserCameraComponent implements OnInit {
     this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
   }
 
-  takeSnapshot(): void {
+  takeSnapshot() {
     const _video = this.videoElement.nativeElement;
-    const dimensions = {width: 640, height: 480};
-    if (_video.videoWidth) {
-      dimensions.width = _video.videoWidth;
-      dimensions.height = _video.videoHeight;
-    }
-    const _canvas = this.canvas.nativeElement;
-     _canvas.width = dimensions.width;
-    _canvas.height = dimensions.height;
+    var _canvas = this.canvas.nativeElement;
+    _canvas.width = _video.videoWidth ? _video.videoWidth : 640;
+    _canvas.height = _video.videoHeight ? _video.videoHeight : 480; 
 
     // paint snapshot image to canvas
-    const context2d = _canvas.getContext('2d');
-    context2d.drawImage(_video, 0, 0);
+
+    _canvas.getContext('2d').drawImage(this.videoElement.nativeElement, 0, 0);
 
     // create blob to send to the backend
     _canvas.toBlob(blob => this.cameraService.updateImageUrl(blob),'image/jpeg', 0.92);
