@@ -19,21 +19,20 @@ export class JoinRoomComponent implements OnInit {
   }
 
   onClick(roomId: string) {
-    this.backend.getJoinRoom(roomId);
-    this.router.navigate(["/connect"]);
-    // .subscribe(
-    //   response => {
-    //     this.backend.setRoomId(roomId);
-    //     this.backend.setUserId(response.body.userId);
-    //     this.backend.setPlaylistUri(response.body.playlistUri);
-    //     this.router.navigate(["/connect"]);
-    //   },
-    //   error => {
-    //     if (error.status >= 400) {
-    //       this.error = true;
-    //     }
-    //   }
-    // );
+    this.backend.getJoinRoom(roomId)
+    .subscribe(
+      response => {
+        this.backend.setRoomId(roomId);
+        this.backend.setUserId(response.body.userId);
+        this.backend.setPlaylistUri(response.body.playlistUri);
+        this.router.navigate(["/connect"]);
+      },
+      error => {
+        if (error.status >= 400) {
+          this.error = true;
+        }
+      }
+    );
   }
 
 }

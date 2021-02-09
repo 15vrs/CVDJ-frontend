@@ -57,16 +57,8 @@ export class BackendService {
   }
 
   // GET get userId and playlistID by calling /join with roomId
-  getJoinRoom(roomId: string) {
-    this.http.get<any>(this.backendApiUrl + '/join/' + roomId, {})
-    .pipe(
-      catchError(this.handleError<string>('getRoomInfo'))
-    )
-    .subscribe(response => {
-      // parse response to get roomID, playlist URI before calling main page
-      this.roomState.userId = response.userId;
-      this.roomState.playlistUri = response.playlistUri;
-    })
+  getJoinRoom(roomId: string):  Observable<any>{
+    return this.http.get<any>(this.backendApiUrl + '/join/' + roomId, { observe: 'response' });
     // response processed in join-room component
   }
 
