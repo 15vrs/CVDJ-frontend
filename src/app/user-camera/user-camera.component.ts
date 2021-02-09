@@ -30,7 +30,6 @@ export class UserCameraComponent implements OnInit {
       .subscribe(event => {
         this.getCameraState();
         this.startCamera();
-        this.takeSnapshot();
         // take snapshots every 20s
         interval(20000).subscribe(() => {
           this.takeSnapshot();
