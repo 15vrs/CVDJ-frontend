@@ -7,7 +7,7 @@
   "response": {
       "status": 200,
       "jsonBody": {
-        "userId": "user1",
+        "userId": "12",
         "playlistUri": "0YOqJAoYs2dJk6KzrGJc5x"
       },
       "headers": {
