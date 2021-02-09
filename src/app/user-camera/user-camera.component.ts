@@ -12,6 +12,14 @@ export class UserCameraComponent implements OnInit {
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   cameraConnected: boolean;
 
+  constraints = {
+    video: {
+      facingMode: "environment",
+      width: { ideal: 4096 },
+      height: { ideal: 2160 }
+    }
+  };
+
   constructor(
     private renderer: Renderer2, 
     private cameraService: CameraService,) { }
@@ -22,7 +30,7 @@ export class UserCameraComponent implements OnInit {
       .subscribe(event => {
         this.getCameraState();
         this.startCamera();
-
+        this.takeSnapshot();
         // take snapshots every 20s
         interval(20000).subscribe(() => {
           this.takeSnapshot();
@@ -34,14 +42,6 @@ export class UserCameraComponent implements OnInit {
       this.startCamera();
     }
   }
-
-  constraints = {
-    video: {
-      facingMode: "environment",
-      width: { ideal: 4096 },
-      height: { ideal: 2160 }
-    }
-  };
 
   getCameraState(): void {
     this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
