@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~10.1.4",
     "@angular/router": "~10.1.4",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@types/spotify-web-playback-sdk": "^0.1.8",
     "bootstrap": "^4.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
