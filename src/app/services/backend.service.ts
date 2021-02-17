@@ -11,8 +11,8 @@ import { FacialEmotions, Room } from '../models';
 export class BackendService {
 
   // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
-  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
+  // private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
 
   constructor(
     private http: HttpClient, 
@@ -62,37 +62,32 @@ export class BackendService {
     // response processed in join-room component
   }
 
-  // scaffold getting an image from URL
-  // getAlbumArt(): Observable<string> {
-  //   return this.http.get<string>(this.backendApiUrl + '/albumArt')
-  //   .pipe(
-  //     catchError(this.handleError<string>('getAlbumArt'))
-  //   )
-  // }
-
   // Login to Spotify via backend service
-
-  getTokens(url: string) {
-    this.http.get<any>(this.backendApiUrl + '/callback/' + url, {})
-    .pipe(
-      catchError(this.handleError<string>('getLoginInfo'))
-    )
-    .subscribe(response => {
-      this.roomState.userId = response;
-      this.getRoomId(this.roomState.userId);
-    })
+  getTokens(url: string): Observable<any> {
+    return this.http.get<any>(this.backendApiUrl + '/callback/' + url, { observe: 'response' });
   }
 
-  getRoomId(id: string) {
-    this.http.get<any>(this.backendApiUrl + '/create_room/' + id, {})
-    .pipe(
-      catchError(this.handleError<string>('getRoomInfo'))
-    )
-    .subscribe(response => {
-      // parse response to get roomID, playlist URI before calling main page
-      this.roomState.roomId = response.roomId;
-      this.roomState.playlistUri = response.playlistUri;
-    })
+  // Create room
+  getCreateRoom(id: string): Observable<any> {
+    return this.http.get<any>(this.backendApiUrl + '/create_room/' + id, { observe: 'response' });
+  }
+
+  // Send browser device IDs to backend
+  setSpotifyDevices(id: string) {
+    var payload = {
+      'deviceId': id,
+      'userId': this.roomState.userId,
+      'roomId': this.roomState.roomId
+    };
+    this.http.post<any>(this.backendApiUrl + '/add_device', payload, { observe: 'response' })
+    .subscribe(
+      response => {
+        // Do nothing...?
+      },
+      error => {
+        // Handle error...?
+      }
+    );
   }
 
   /**
@@ -107,6 +102,10 @@ export class BackendService {
     return this.roomState;
   }
 
+  public getAccessToken(): string {
+    return this.roomState.accessToken;
+  }
+
   setRoomId(response) {
     this.roomState.roomId = response;
   }
@@ -117,6 +116,10 @@ export class BackendService {
 
   setPlaylistUri(response) {
     this.roomState.playlistUri = response;
+  }
+
+  setAccessToken(response) {
+    this.roomState.accessToken = response;
   }
 
   /**

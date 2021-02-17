@@ -25,6 +25,7 @@ export class JoinRoomComponent implements OnInit {
         this.backend.setRoomId(roomId);
         this.backend.setUserId(response.body.userId);
         this.backend.setPlaylistUri(response.body.playlistUri);
+        this.backend.setAccessToken(response.body.accessToken);
         this.router.navigate(["/connect"]);
       },
       error => {
