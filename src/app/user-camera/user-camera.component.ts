@@ -22,6 +22,7 @@ export class UserCameraComponent implements OnInit {
       .subscribe(event => {
         this.getCameraState();
         this.startCamera();
+        this.cameraService.updateCameraConnected(true);
 
         // take snapshots every 20s
         interval(20000).subscribe(() => {
@@ -48,7 +49,6 @@ export class UserCameraComponent implements OnInit {
   }
 
   startCamera() {
-    this.cameraService.updateCameraConnected(true);
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
       navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
     } else {
@@ -65,6 +65,7 @@ export class UserCameraComponent implements OnInit {
   }
 
   takeSnapshot(): void {
+    this.startCamera(); //restart camera for each snapshot
     const _video = this.videoElement.nativeElement;
     const dimensions = {width: 640, height: 480};
     if (_video.videoWidth) {
