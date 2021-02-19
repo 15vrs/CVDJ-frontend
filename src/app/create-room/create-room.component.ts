@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-create-room',
@@ -14,13 +12,21 @@ export class CreateRoomComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login() {
-    // TODO: update redirect_uri to final url
-    var url = 'https://accounts.spotify.com/authorize?client_id=ce5b366904544b58beb4a235b44ffc6c' + 
-    '&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Fcallback%2F' + 
-    '&scope=user-read-playback-state+user-modify-playback-state+streaming+user-read-email' + 
-    '+user-read-private+playlist-modify-private+playlist-modify-public';
+  encodeUrlData(data) {
+    const ret = [];
+    for (let d in data)
+      ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
+    return ret.join('&');
+  }
 
+  login() {
+    var urlData = {
+      'client_id': 'ce5b366904544b58beb4a235b44ffc6c',
+      'response_type': 'code',
+      'redirect_uri': 'http://localhost:4200/callback/', 
+      'scope': 'user-read-playback-state user-modify-playback-state streaming user-read-email user-read-private playlist-modify-private playlist-modify-public user-read-recently-played'
+    }
+    var url = 'https://accounts.spotify.com/authorize?' + this.encodeUrlData(urlData);
     window.open(url, '_self');
   }
 
