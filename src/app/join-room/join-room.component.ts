@@ -5,11 +5,13 @@ import { BackendService } from '../services/backend.service';
 @Component({
   selector: 'join-room',
   templateUrl: './join-room.component.html',
-  styleUrls: ['./join-room.component.css']
+  styleUrls: ['./join-room.component.css'],
+  preserveWhitespaces: true
 })
 export class JoinRoomComponent implements OnInit {
 
   error: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private backend: BackendService,
@@ -18,14 +20,15 @@ export class JoinRoomComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClick(roomId: string) {
+  submit(roomId: string) {
+    this.loading = true;
     this.backend.getJoinRoom(roomId)
     .subscribe(
       response => {
+        this.router.navigate(["/connect"]);
         this.backend.setRoomId(roomId);
         this.backend.setUserId(response.body.userId);
         this.backend.setPlaylistUri(response.body.playlistUri);
-        this.router.navigate(["/connect"]);
       },
       error => {
         if (error.status >= 400) {
