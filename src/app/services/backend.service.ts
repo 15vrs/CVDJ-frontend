@@ -86,7 +86,9 @@ export class BackendService {
     this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('playMusic'))
-    );
+    ).subscribe(response => {
+      // update album art
+    });
   }
 
   // pause music
@@ -94,7 +96,9 @@ export class BackendService {
     this.http.get<any>(this.backendApiUrl + '/pause/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('pauseMusic'))
-    );
+    ).subscribe(response => {
+      // update album art
+    });
   }
 
   // skip song
@@ -102,15 +106,19 @@ export class BackendService {
     this.http.get<any>(this.backendApiUrl + '/next/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('skipSong'))
-    );
+    ).subscribe(response => {
+      // update album art
+    });
   }
 
   // skip song
   previousSong() {
-    this.http.get<any>(this.backendApiUrl + '/previous/' + this.roomState.roomId, { observe: 'response' })
+    this.http.get<any>(this.backendApiUrl + '/previous/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('previousSong'))
-    );
+    ).subscribe(response => {
+      // update album art
+    });
   }
 
   /**
