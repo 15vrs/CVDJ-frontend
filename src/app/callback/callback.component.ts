@@ -14,7 +14,7 @@ export class CallbackComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit(): void {
-        this.backend.getTokens(window.location.search)
+        this.backend.getTokens(window.location.search, window.location.origin)
         .subscribe(
             response => {
                 this.backend.setUserId(response.body);

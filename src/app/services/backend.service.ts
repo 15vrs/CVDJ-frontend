@@ -59,8 +59,8 @@ export class BackendService {
   }
 
   // Login to Spotify via backend service
-  getTokens(url: string): Observable<any> {
-    return this.http.get<any>(this.backendApiUrl + '/callback/' + url, { observe: 'response' });
+  getTokens(url: string, redirectUri: string): Observable<any> {
+    return this.http.post<any>(this.backendApiUrl + '/callback/' + url, redirectUri, { observe: 'response' });
   }
 
   // Create room
