@@ -23,12 +23,3 @@ export class FacialEmotions {
   sadness: any;
   surprise: any;
 }
-
-export class Music {
-  playing: boolean;
-  previouslyPlayed?: string;
-  currentlyPlaying?: string;
-  upNext?: string;
-  skipForward: boolean;
-  skipBackward: boolean;
-}
