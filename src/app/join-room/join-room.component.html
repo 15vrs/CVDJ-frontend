@@ -23,10 +23,15 @@
       <span class="sr-only ">Loading...</span>
     </div>
   </div>
-  <div *ngIf="error">
+  <div *ngIf="inputError">
+    <div class="alert alert-warning" role="alert">
+      Please enter a valid room code.
+    </div>
+  </div>
+  <div *ngIf="backendError">
     <div class="alert alert-danger" role="alert">
       The room you are trying to join does not exist. <br>
-      Would you like to <a href="/create" class="alert-link">create the room</a>?
+      Would you like to <a href="/create" class="alert-link">create a room</a>?
     </div>
   </div>
 </div>
