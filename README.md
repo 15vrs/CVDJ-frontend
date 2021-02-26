@@ -3,18 +3,18 @@
 ## Quick Start
 
 - `npm install` to install node_modules
-- `npm run start` to run app locally on port localhost:4200
-- `npm run server` to run fake backend server
+- `npm run start` to run app locally on port localhost:4200 using the production backend
 - `npm run test` to run tests
 
 ## Run with local backend
 
-In the backend repo, run `python -m flask run`. Change any backend endpoints to `http://127.0.0.1:5000`. Run this application.
+Run `npm run start:dev`.
+In the backend repo, run `python -m flask run`.
 
 ## Run with wiremock
 
-In a new terminal, run `npm run wiremock`. Change any backend endpoints to `http://localhost:8080`. Run this application.
-
+Run `npm run start:qa`.
+In a new terminal, run `npm run wiremock`. 
 
 ## Code scaffolding
 

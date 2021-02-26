@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { FacialEmotions, Room } from '../models';
 
 @Injectable({
@@ -10,9 +11,7 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  // private backendApiUrl = 'http://localhost:8080'; //test with wiremock
-  // private backendApiUrl = 'http://127.0.0.1:5000'; //test with local backend
-  private backendApiUrl = 'https://cvdj.azurewebsites.net'; //connect to backend server
+  private backendApiUrl = environment.apiUrl; //test with local backend
 
   constructor(
     private http: HttpClient, 
