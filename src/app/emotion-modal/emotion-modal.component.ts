@@ -12,10 +12,10 @@ export class EmotionModalComponent implements OnInit {
   emotions: FacialEmotions;
 
   constructor(private backend: BackendService) { }
-  
+
   ngOnInit(): void {
     this.emotions = this.backend.getFacialEmotions();
-    //need to access this conditionally
+    // need to access this conditionally
     // or access onInit but use ngIf in template to conditionally display text
   }
 

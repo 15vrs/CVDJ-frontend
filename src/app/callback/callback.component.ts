@@ -7,8 +7,8 @@ import { BackendService } from '../services/backend.service';
 })
 export class CallbackComponent implements OnInit {
 
-    error: boolean = false;
-  
+    error = false;
+
     constructor(
         private backend: BackendService,
         private router: Router) { }
@@ -22,11 +22,11 @@ export class CallbackComponent implements OnInit {
                 // Nested call to create room.
                 this.backend.getCreateRoom(response.body)
                 .subscribe(
-                    response => {
-                        this.backend.setRoomId(response.body.roomId);
-                        this.backend.setPlaylistUri(response.body.playlistUri);
-                        this.backend.setAccessToken(response.body.accessToken);
-                        this.router.navigate(["/connect"]);
+                    res => {
+                        this.backend.setRoomId(res.body.roomId);
+                        this.backend.setPlaylistUri(res.body.playlistUri);
+                        this.backend.setAccessToken(res.body.accessToken);
+                        this.router.navigate(['/connect']);
                     },
                     error => {
                         if (error.status >= 400) {

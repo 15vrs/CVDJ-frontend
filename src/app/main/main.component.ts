@@ -11,13 +11,13 @@ import { MusicService } from '../services/music.service';
 })
 export class MainComponent implements OnInit {
 
-  @Input() loading: boolean = true; // default to true so no access to random room; TODO router guards
-  description: string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+  @Input() loading = true; // default to true so no access to random room; TODO router guards
+  description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
   currentAlbumArt: string;
   roomInfo: Room;
-  baseUrl = "https://open.spotify.com/embed/playlist/";
+  baseUrl = 'https://open.spotify.com/embed/playlist/';
   playlistUrl: SafeResourceUrl;
-  
+
   constructor(
     private musicService: MusicService,
     private backend: BackendService,

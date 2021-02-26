@@ -10,8 +10,8 @@ import { BackendService } from '../services/backend.service';
 })
 export class JoinRoomComponent implements OnInit {
 
-  error: boolean = false;
-  loading: boolean = false;
+  error = false;
+  loading = false;
 
   constructor(
     private backend: BackendService,
@@ -25,7 +25,7 @@ export class JoinRoomComponent implements OnInit {
     this.backend.getJoinRoom(roomId)
     .subscribe(
       response => {
-        this.router.navigate(["/connect"]);
+        this.router.navigate(['/connect']);
         this.backend.setRoomId(roomId);
         this.backend.setUserId(response.body.userId);
         this.backend.setPlaylistUri(response.body.playlistUri);

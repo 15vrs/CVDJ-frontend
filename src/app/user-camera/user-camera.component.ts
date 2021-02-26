@@ -8,13 +8,21 @@ import { CameraService } from '../services/camera.service';
   styleUrls: ['./user-camera.component.css']
 })
 export class UserCameraComponent implements OnInit {
+
+  constructor(
+    private renderer: Renderer2,
+    private cameraService: CameraService,) { }
   @ViewChild('video', { static: true }) videoElement: ElementRef;
   @ViewChild('canvas', { static: true }) canvas: ElementRef;
   cameraConnected: boolean;
 
-  constructor(
-    private renderer: Renderer2, 
-    private cameraService: CameraService,) { }
+  constraints = {
+    video: {
+      facingMode: 'environment',
+      width: { ideal: 4096 },
+      height: { ideal: 2160 }
+    }
+  };
 
   ngOnInit(): void {
     // display webcam on page first time
@@ -36,20 +44,12 @@ export class UserCameraComponent implements OnInit {
     }
   }
 
-  constraints = {
-    video: {
-      facingMode: "environment",
-      width: { ideal: 4096 },
-      height: { ideal: 2160 }
-    }
-  };
-
   getCameraState(): void {
     this.cameraConnected = this.cameraService.getCameraState().cameraConnected;
   }
 
   startCamera() {
-    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) { 
+    if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
       navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
     } else {
       alert('Sorry, camera not available.');
@@ -59,13 +59,13 @@ export class UserCameraComponent implements OnInit {
   handleError(error): void {
     console.log('Error: ', error);
   }
-  
+
   attachVideo(stream): void {
     this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
   }
 
   takeSnapshot(): void {
-    this.startCamera(); //restart camera for each snapshot
+    this.startCamera(); // restart camera for each snapshot
     const _video = this.videoElement.nativeElement;
     const dimensions = {width: 640, height: 480};
     if (_video.videoWidth) {

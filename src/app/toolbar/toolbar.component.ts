@@ -18,7 +18,7 @@ export class ToolbarComponent implements OnInit {
     private cameraService: CameraService
     ) { }
 
-  cameraConnected: boolean = false;
+  cameraConnected = false;
 
   ngOnInit(): void {
     this.cameraService.connectClicked.subscribe(event => {

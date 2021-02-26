@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -11,11 +10,9 @@ import { FacialEmotions, Room } from '../models';
 })
 export class BackendService {
 
-  private backendApiUrl = environment.apiUrl; //test with local backend
+  private backendApiUrl = environment.apiUrl;
 
-  constructor(
-    private http: HttpClient, 
-    private router: Router) { }
+  constructor(private http: HttpClient) { }
 
   private facialEmotionsState: FacialEmotions = {
     anger: 0,
@@ -43,7 +40,7 @@ export class BackendService {
       catchError(this.handleError<FacialEmotions>('postImageUrl'))
     )
     .subscribe(response => {
-      var data = JSON.parse(response.replace(/'/g, '"'));
+      const data = JSON.parse(response.replace(/'/g, '"'));
       this.facialEmotionsState.anger = data.anger;
       this.facialEmotionsState.contempt = data.contempt;
       this.facialEmotionsState.disgust = data.disgust;
@@ -73,10 +70,10 @@ export class BackendService {
 
   // Send browser device IDs to backend
   setSpotifyDevices(id: string) {
-    var payload = {
-      'deviceId': id,
-      'userId': this.roomState.userId,
-      'roomId': this.roomState.roomId
+    const payload = {
+      deviceId: id,
+      userId: this.roomState.userId,
+      roomId: this.roomState.roomId
     };
     this.http.post<any>(this.backendApiUrl + '/add_device', payload, { observe: 'response' })
     .subscribe(
@@ -122,11 +119,11 @@ export class BackendService {
   }
 
   /**
-  * Handle Http operation that failed.
-  * Let the app continue.
-  * @param operation - name of the operation that failed
-  * @param result - optional value to return as the observable result
-  */
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(error);
