@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { FacialEmotions, Room } from '../models';
+import { FacialEmotions, Music, Room } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,10 @@ export class BackendService {
 
   private roomState: Room = {
     userId: undefined,
+  }
+
+  private musicState: Music = {
+    playing: false,
   }
 
   /**
@@ -83,12 +87,16 @@ export class BackendService {
 
   // play music
   playMusic() {
-    this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
-    .pipe(
-      catchError(this.handleError<FacialEmotions>('playMusic'))
-    ).subscribe(response => {
-      // update album art
-    });
+    // only call backend to play if music not already playing
+    if (!this.musicState.playing){
+      this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
+      .pipe(
+        catchError(this.handleError<FacialEmotions>('playMusic'))
+      ).subscribe(response => {
+        this.musicState.playing = true;
+        // update album art
+      });
+    }
   }
 
   // pause music
