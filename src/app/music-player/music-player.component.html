@@ -1,32 +1,31 @@
 <nav class="navbar fixed-bottom bg-dark">
   <div class="container-fluid">
     <div class="row mx-auto">
-      <a href="">
+      <button class="button" (click)="previous()">
         <img class="icon"
-          alt="step backward button"
+          alt="play previous song button"
           src="../../assets/images/media-step-backward.svg"
           />
-      </a>
-      <!-- NOTE: USE NG-TEMPALTE TO SWITCH BETWEEN 
-        PLAY AND PAUSE BUTTON ONCE NGRX IS SCAFFOLDED -->
-      <a href="">
+      </button>
+      <!-- NOTE: USE NG-TEMPALTE TO SWITCH BETWEEN PLAY AND PAUSE BUTTON -->
+      <button class="button" (click)="play()">
         <img class="icon"
-          alt="play button"
+          alt="play music button"
           src="../../assets/images/play-circle.svg"
           />
-      </a>
-      <a href="">
+      </button>
+      <button class="button" (click)="pause()">
         <img class="icon"
-          alt="pause button"
+          alt="pause music button"
           src="../../assets/images/pause-circle.svg"
           />
-      </a>
-      <a href="">
+      </button>
+      <button class="button" (click)="skip()">
         <img class="icon"
-          alt="step forward button"
+          alt="skip song button"
           src="../../assets/images/media-step-forward.svg"
           />
-      </a>
+      </button>
     </div>
   </div>
 </nav>

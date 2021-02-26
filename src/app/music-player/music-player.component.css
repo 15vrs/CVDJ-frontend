@@ -3,3 +3,7 @@
   height: 32px;
   margin: 0 16px;
 }
+.button {
+  background: none;
+  margin: 0;
+}

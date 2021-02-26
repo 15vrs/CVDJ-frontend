@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'music-player',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MusicPlayerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
+  }
+
+  play() {
+    this.backend.playMusic();
+  }
+
+  pause() {
+    this.backend.pauseMusic();
+  }
+
+  skip() {
+    this.backend.skipSong();
+  }
+
+  previous() {
+    this.backend.previousSong();
   }
 
 }

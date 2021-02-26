@@ -82,32 +82,32 @@ export class BackendService {
   }
 
   // play music
-  playMusic(id: string): Observable<any> {
-    return this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
+  playMusic() {
+    this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('playMusic'))
     );
   }
 
   // pause music
-  pauseMusic(id: string): Observable<any> {
-    return this.http.get<any>(this.backendApiUrl + '/pause/' + this.roomState.roomId)
+  pauseMusic() {
+    this.http.get<any>(this.backendApiUrl + '/pause/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('pauseMusic'))
     );
   }
 
   // skip song
-  skipSong(id: string): Observable<any> {
-    return this.http.get<any>(this.backendApiUrl + '/next/' + this.roomState.roomId)
+  skipSong() {
+    this.http.get<any>(this.backendApiUrl + '/next/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('skipSong'))
     );
   }
 
   // skip song
-  previousSong(id: string): Observable<any> {
-    return this.http.get<any>(this.backendApiUrl + '/previous/' + this.roomState.roomId)
+  previousSong() {
+    this.http.get<any>(this.backendApiUrl + '/previous/' + this.roomState.roomId, { observe: 'response' })
     .pipe(
       catchError(this.handleError<FacialEmotions>('previousSong'))
     );
