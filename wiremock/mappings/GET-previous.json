@@ -1,0 +1,17 @@
+{
+  "request": {
+      "method": "GET",
+      "urlPathPattern": "/previous/([0-9]*)"
+  },
+  "response": {
+      "status": 200,
+      "jsonBody": {
+          "song": "Work",
+          "artist": "Rihanna",
+          "albumArt": "https://upload.wikimedia.org/wikipedia/en/3/32/Rihanna_-_Anti.png"
+      },
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  }
+}

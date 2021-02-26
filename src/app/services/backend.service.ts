@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -9,6 +9,8 @@ import { FacialEmotions, Music, Room } from '../models';
   providedIn: 'root'
 })
 export class BackendService {
+
+  @Output() musicStateUpdated = new EventEmitter<Music>();
 
   private backendApiUrl = environment.apiUrl;
 
@@ -31,6 +33,9 @@ export class BackendService {
 
   private musicState: Music = {
     playing: false,
+    song: undefined,
+    artist: undefined,
+    albumArt: undefined
   }
 
   /**
@@ -94,7 +99,9 @@ export class BackendService {
         catchError(this.handleError<FacialEmotions>('playMusic'))
       ).subscribe(response => {
         this.musicState.playing = true;
-        // update album art
+        if (response.albumArt != this.musicState.albumArt){
+          this.updateMusicDetails(response);
+        }
       });
     }
   }
@@ -104,8 +111,8 @@ export class BackendService {
     this.http.get<any>(this.backendApiUrl + '/pause/' + this.roomState.roomId)
     .pipe(
       catchError(this.handleError<FacialEmotions>('pauseMusic'))
-    ).subscribe(response => {
-      // update album art
+    ).subscribe(() => {
+      this.musicState.playing = false;
     });
   }
 
@@ -115,7 +122,9 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('skipSong'))
     ).subscribe(response => {
-      // update album art
+      if (response.albumArt != this.musicState.albumArt){
+        this.updateMusicDetails(response);
+      }
     });
   }
 
@@ -125,8 +134,21 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('previousSong'))
     ).subscribe(response => {
-      // update album art
+      if (response.albumArt != this.musicState.albumArt){
+        this.updateMusicDetails(response);
+      } 
     });
+  }
+
+  /**
+   * helper methods
+   */
+  
+  private updateMusicDetails(response) {
+    this.musicState.albumArt = response.albumArt;
+    this.musicState.song = response.song;
+    this.musicState.artist = response.artist;
+    this.musicStateUpdated.emit(this.musicState);
   }
 
   /**
