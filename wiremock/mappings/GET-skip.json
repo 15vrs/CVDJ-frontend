@@ -1,0 +1,17 @@
+{
+  "request": {
+      "method": "GET",
+      "urlPathPattern": "/next/([0-9]*)"
+  },
+  "response": {
+      "status": 200,
+      "jsonBody": {
+          "song": "Starboy",
+          "artist": "The Weeknd",
+          "albumArt": "https://upload.wikimedia.org/wikipedia/en/3/39/The_Weeknd_-_Starboy.png"
+      },
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  }
+}

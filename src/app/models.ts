@@ -9,10 +9,6 @@ export class Camera {
   cameraConnected: boolean;
 }
 
-export class FaceAttributes {
-  emotion: FacialEmotions;
-}
-
 export class FacialEmotions {
   anger: any;
   contempt: any;
@@ -26,9 +22,7 @@ export class FacialEmotions {
 
 export class Music {
   playing: boolean;
-  previouslyPlayed?: string;
-  currentlyPlaying?: string;
-  upNext?: string;
-  skipForward: boolean;
-  skipBackward: boolean;
+  song: string;
+  artist: string;
+  albumArt: string;
 }

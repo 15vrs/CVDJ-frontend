@@ -12,7 +12,7 @@ import { MusicService } from '../services/music.service';
 export class MainComponent implements OnInit {
 
   @Input() loading = true; // default to true so no access to random room; TODO router guards
-  description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+  description: string;
   currentAlbumArt: string;
   roomInfo: Room;
   baseUrl = 'https://open.spotify.com/embed/playlist/';
@@ -33,5 +33,12 @@ export class MainComponent implements OnInit {
 
       this.musicService.addSpotifyPlaybackSdk();
     }
+
+    this.backend.musicStateUpdated
+      .subscribe(state => {
+        this.currentAlbumArt = state.albumArt;
+        this.description = state.song + " by " + state.artist; 
+      })
+
   }
 }

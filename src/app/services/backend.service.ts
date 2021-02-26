@@ -1,14 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { FacialEmotions, Room } from '../models';
+import { FacialEmotions, Music, Room } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
+
+  @Output() musicStateUpdated = new EventEmitter<Music>();
 
   private backendApiUrl = environment.apiUrl;
 
@@ -27,6 +29,13 @@ export class BackendService {
 
   private roomState: Room = {
     userId: undefined,
+  }
+
+  private musicState: Music = {
+    playing: false,
+    song: undefined,
+    artist: undefined,
+    albumArt: undefined
   }
 
   /**
@@ -75,15 +84,71 @@ export class BackendService {
       userId: this.roomState.userId,
       roomId: this.roomState.roomId
     };
-    this.http.post<any>(this.backendApiUrl + '/add_device', payload, { observe: 'response' })
-    .subscribe(
-      response => {
-        // Do nothing...?
-      },
-      error => {
-        // Handle error...?
-      }
+    this.http.post<any>(this.backendApiUrl + '/add_device', payload)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('setSpotifyDevices'))
     );
+  }
+
+  // play music
+  playMusic() {
+    // only call backend to play if music not already playing
+    if (!this.musicState.playing){
+      this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
+      .pipe(
+        catchError(this.handleError<FacialEmotions>('playMusic'))
+      ).subscribe(response => {
+        this.musicState.playing = true;
+        if (response.albumArt != this.musicState.albumArt){
+          this.updateMusicDetails(response);
+        }
+      });
+    }
+  }
+
+  // pause music
+  pauseMusic() {
+    this.http.get<any>(this.backendApiUrl + '/pause/' + this.roomState.roomId)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('pauseMusic'))
+    ).subscribe(() => {
+      this.musicState.playing = false;
+    });
+  }
+
+  // skip song
+  skipSong() {
+    this.http.get<any>(this.backendApiUrl + '/next/' + this.roomState.roomId)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('skipSong'))
+    ).subscribe(response => {
+      if (response.albumArt != this.musicState.albumArt){
+        this.updateMusicDetails(response);
+      }
+    });
+  }
+
+  // skip song
+  previousSong() {
+    this.http.get<any>(this.backendApiUrl + '/previous/' + this.roomState.roomId)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('previousSong'))
+    ).subscribe(response => {
+      if (response.albumArt != this.musicState.albumArt){
+        this.updateMusicDetails(response);
+      } 
+    });
+  }
+
+  /**
+   * helper methods
+   */
+  
+  private updateMusicDetails(response) {
+    this.musicState.albumArt = response.albumArt;
+    this.musicState.song = response.song;
+    this.musicState.artist = response.artist;
+    this.musicStateUpdated.emit(this.musicState);
   }
 
   /**
