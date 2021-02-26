@@ -9,10 +9,6 @@ export class Camera {
   cameraConnected: boolean;
 }
 
-export class FaceAttributes {
-  emotion: FacialEmotions;
-}
-
 export class FacialEmotions {
   anger: any;
   contempt: any;
