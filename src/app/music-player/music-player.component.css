@@ -1,9 +1,10 @@
 .icon {
   width: 32px;
   height: 32px;
-  margin: 0 16px;
 }
 .button {
   background: none;
   margin: 0;
+  border: none;
+  padding: 0 16px;
 }
