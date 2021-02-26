@@ -24,19 +24,14 @@ export class MainComponent implements OnInit {
     private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    // this.getAlbumArt()
 
     this.roomInfo = this.backend.getRoomInfo();
     // once FE receives room info, stop loading
     if (this.roomInfo.userId != null) {
       this.loading = false;
       this.playlistUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.roomInfo.playlistUri);
+
+      this.musicService.addSpotifyPlaybackSdk();
     }
   }
-
-  // async getAlbumArt() {
-  //   this.currentAlbumArt = this.musicService.getCurrentlyPlaying();
-  //   console.log(this.currentAlbumArt)
-  // }
-
 }
