@@ -87,7 +87,7 @@ export class BackendService {
     this.http.post<any>(this.backendApiUrl + '/add_device', payload)
     .pipe(
       catchError(this.handleError<FacialEmotions>('setSpotifyDevices'))
-    );
+    ).subscribe();
   }
 
   // play music
