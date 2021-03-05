@@ -16,4 +16,14 @@ describe('CameraService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('updateCameraConnected should change the cameraState', () => {
+    service.updateCameraConnected(true);
+    expect(service.getCameraState().cameraConnected).toEqual(true);
+  });
+
+  it('connectCameraClicked should change cameraConnected to true ', () => {
+    service.connectCameraClicked();
+    expect(service.getCameraState().cameraConnected).toEqual(true);
+  });
 });
