@@ -7,6 +7,8 @@
       "status": 200,
       "jsonBody": {
         "roomId": "room1",
+        "userId": "user1",
+        "accessToken": "accesstoken",
         "playlistUri": "0YOqJAoYs2dJk6KzrGJc5x"
       },
       "headers": {
