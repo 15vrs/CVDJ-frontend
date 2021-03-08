@@ -18,15 +18,15 @@ export class CallbackComponent implements OnInit {
         this.backend.getCreateRoom(window.location.search, window.location.origin)
         .subscribe(
             res => {
+                this.router.navigate(['/connect']);
                 this.backend.setRoomId(res.body.roomId);
                 this.backend.setUserId(res.body.userId);
                 this.backend.setAccessToken(res.body.accessToken);
                 this.backend.setPlaylistUri(res.body.playlistUri);
-                this.router.navigate(['/connect']);
             },
             error => {
                 if (error.status >= 400) {
-                this.error = true;
+                    this.error = true;
                 }
             }
         );

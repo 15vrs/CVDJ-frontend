@@ -12,7 +12,7 @@ export class BackendService {
 
   @Output() musicStateUpdated = new EventEmitter<Music>();
 
-  private backendApiUrl = 'http://127.0.0.1:5000';
+  private backendApiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +32,6 @@ export class BackendService {
   }
 
   private musicState: Music = {
-    playing: false,
     song: undefined,
     artist: undefined,
     albumArt: undefined
@@ -87,18 +86,14 @@ export class BackendService {
 
   // play music
   playMusic() {
-    // only call backend to play if music not already playing
-    if (!this.musicState.playing){
-      this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
-      .pipe(
-        catchError(this.handleError<FacialEmotions>('playMusic'))
-      ).subscribe(response => {
-        this.musicState.playing = true;
-        if (response.albumArt != this.musicState.albumArt){
-          this.updateMusicDetails(response);
-        }
-      });
-    }
+    this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('playMusic'))
+    ).subscribe(response => {
+      if (response.albumArt != this.musicState.albumArt){
+        this.updateMusicDetails(response);
+      }
+    });
   }
 
   // pause music
@@ -107,7 +102,6 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('pauseMusic'))
     ).subscribe(() => {
-      this.musicState.playing = false;
     });
   }
 
