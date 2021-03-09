@@ -1,13 +1,14 @@
 {
   "request": {
       "method": "GET",
-      "urlPathPattern": "/join/([0-9]*)"
+      "urlPathPattern": "/join_room/([0-9]*)"
       
   },
   "response": {
       "status": 200,
       "jsonBody": {
         "userId": "user1",
+        "accessToken": "accesstoken",
         "playlistUri": "0YOqJAoYs2dJk6KzrGJc5x"
       },
       "headers": {

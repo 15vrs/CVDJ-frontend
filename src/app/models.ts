@@ -21,7 +21,6 @@ export class FacialEmotions {
 }
 
 export class Music {
-  playing: boolean;
   song: string;
   artist: string;
   albumArt: string;

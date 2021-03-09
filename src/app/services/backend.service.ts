@@ -32,7 +32,6 @@ export class BackendService {
   }
 
   private musicState: Music = {
-    playing: false,
     song: undefined,
     artist: undefined,
     albumArt: undefined
@@ -63,18 +62,13 @@ export class BackendService {
 
   // GET get userId and playlistID by calling /join with roomId
   getJoinRoom(roomId: string):  Observable<any>{
-    return this.http.get<any>(this.backendApiUrl + '/join/' + roomId, { observe: 'response' });
+    return this.http.get<any>(this.backendApiUrl + '/join_room/' + roomId, { observe: 'response' });
     // response processed in join-room component
   }
 
-  // Login to Spotify via backend service
-  getTokens(url: string, redirectUri: string): Observable<any> {
-    return this.http.post<any>(this.backendApiUrl + '/callback/' + url, redirectUri, { observe: 'response' });
-  }
-
-  // Create room
-  getCreateRoom(id: string): Observable<any> {
-    return this.http.get<any>(this.backendApiUrl + '/create_room/' + id, { observe: 'response' });
+  // Login to Spotify and create room via backend service
+  getCreateRoom(url: string, redirectUri: string): Observable<any> {
+    return this.http.post<any>(this.backendApiUrl + '/create_room' + url, redirectUri, { observe: 'response' });
   }
 
   // Send browser device IDs to backend
@@ -92,18 +86,14 @@ export class BackendService {
 
   // play music
   playMusic() {
-    // only call backend to play if music not already playing
-    if (!this.musicState.playing){
-      this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
-      .pipe(
-        catchError(this.handleError<FacialEmotions>('playMusic'))
-      ).subscribe(response => {
-        this.musicState.playing = true;
-        if (response.albumArt != this.musicState.albumArt){
-          this.updateMusicDetails(response);
-        }
-      });
-    }
+    this.http.get<any>(this.backendApiUrl + '/play/' + this.roomState.roomId)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('playMusic'))
+    ).subscribe(response => {
+      if (response.albumArt != this.musicState.albumArt){
+        this.updateMusicDetails(response);
+      }
+    });
   }
 
   // pause music
@@ -112,7 +102,6 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('pauseMusic'))
     ).subscribe(() => {
-      this.musicState.playing = false;
     });
   }
 
