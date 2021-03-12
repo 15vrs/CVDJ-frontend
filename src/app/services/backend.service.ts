@@ -102,7 +102,7 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('playMusic'))
     ).subscribe(response => {
-      if (response.albumArt != this.musicState.albumArt){
+      if (response.albumArt !== this.musicState.albumArt){
         this.updateMusicDetails(response);
       }
     });
@@ -123,7 +123,7 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('skipSong'))
     ).subscribe(response => {
-      if (response.albumArt != this.musicState.albumArt){
+      if (response.albumArt !== this.musicState.albumArt){
         this.updateMusicDetails(response);
       }
     });
@@ -135,16 +135,16 @@ export class BackendService {
     .pipe(
       catchError(this.handleError<FacialEmotions>('previousSong'))
     ).subscribe(response => {
-      if (response.albumArt != this.musicState.albumArt){
+      if (response.albumArt !== this.musicState.albumArt){
         this.updateMusicDetails(response);
-      } 
+      }
     });
   }
 
   /**
    * helper methods
    */
-  
+
   private updateMusicDetails(response) {
     this.musicState.albumArt = response.albumArt;
     this.musicState.song = response.song;

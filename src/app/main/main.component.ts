@@ -37,14 +37,14 @@ export class MainComponent implements OnInit {
     this.backend.musicStateUpdated
       .subscribe(state => {
         this.currentAlbumArt = state.albumArt;
-        this.description = state.song + " by " + state.artist; 
+        this.description = state.song + ' by ' + state.artist;
       })
 
   }
 
   @HostListener('window:beforeunload', [ '$event' ])
   onBeforeUnload($event: any) {
-    if (this.backend.getRoomInfo().roomId != undefined ) {
+    if (this.backend.getRoomInfo().roomId !== undefined ) {
       this.backend.postLeaveRoom();
     };
     $event.returnValue = false;
