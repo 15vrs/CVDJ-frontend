@@ -1,0 +1,16 @@
+{
+  "request": {
+      "method": "POST",
+      "urlPathPattern": "/leave_room",
+      "bodyPatterns" : [ {
+        "equalToJson" : "{ \"userId\": \"user1\", \"roomId\": \"room1\" }"
+      } ]
+  },
+  "response": {
+      "status": 200,
+      
+      "headers": {
+          "Content-Type": "application/json"
+      }
+  }
+}

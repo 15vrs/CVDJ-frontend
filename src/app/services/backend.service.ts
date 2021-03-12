@@ -60,6 +60,18 @@ export class BackendService {
     })
   }
 
+  // POST to leave room when user closes the window
+  postLeaveRoom() {
+    const payload = {
+      userId: this.roomState.userId,
+      roomId: this.roomState.roomId
+    };
+    this.http.post<any>(this.backendApiUrl + '/leave_room', payload)
+    .pipe(
+      catchError(this.handleError<FacialEmotions>('postLeaveRoom'))
+    ).subscribe();
+  }
+
   // GET get userId and playlistID by calling /join with roomId
   getJoinRoom(roomId: string):  Observable<any>{
     return this.http.get<any>(this.backendApiUrl + '/join_room/' + roomId, { observe: 'response' });
