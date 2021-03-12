@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Room } from '../models';
 import { BackendService } from '../services/backend.service';
@@ -40,5 +40,13 @@ export class MainComponent implements OnInit {
         this.description = state.song + " by " + state.artist; 
       })
 
+  }
+
+  @HostListener('window:beforeunload', [ '$event' ])
+  onBeforeUnload($event: any) {
+    if (this.backend.getRoomInfo().roomId != undefined ) {
+      this.backend.postLeaveRoom();
+    };
+    $event.returnValue = false;
   }
 }

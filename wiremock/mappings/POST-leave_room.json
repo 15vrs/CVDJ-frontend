@@ -1,10 +1,7 @@
 {
   "request": {
       "method": "POST",
-      "urlPathPattern": "/leave_room",
-      "bodyPatterns" : [ {
-        "equalToJson" : "{ \"userId\": \"user1\", \"roomId\": \"room1\" }"
-      } ]
+      "urlPathPattern": "/leave_room"
   },
   "response": {
       "status": 200,
