@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BackendService } from '../services/backend.service';
 
 @Component({
   templateUrl: './callback.component.html',
 })
-export class CallbackComponent implements OnInit {
+export class CallbackComponent implements OnInit, OnDestroy {
 
     error = false;
+    subscription: Subscription;
 
     constructor(
         private backend: BackendService,
@@ -15,7 +17,7 @@ export class CallbackComponent implements OnInit {
 
     ngOnInit(): void {
         // Nested call to create room.
-        this.backend.getCreateRoom(window.location.search, window.location.origin)
+        this.subscription = this.backend.getCreateRoom(window.location.search, window.location.origin)
         .subscribe(
             res => {
                 this.router.navigate(['/connect']);
@@ -30,5 +32,11 @@ export class CallbackComponent implements OnInit {
                 }
             }
         );
+    }
+
+    ngOnDestroy() {
+        if(this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

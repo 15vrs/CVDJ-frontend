@@ -5,12 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './create-room.component.html',
   styleUrls: ['./create-room.component.css']
 })
-export class CreateRoomComponent implements OnInit {
+export class CreateRoomComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   encodeUrlData(data) {
     const ret = [];

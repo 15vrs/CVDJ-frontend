@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { BackendService } from '../services/backend.service';
 
 @Component({
@@ -8,17 +9,21 @@ import { BackendService } from '../services/backend.service';
   styleUrls: ['./join-room.component.css'],
   preserveWhitespaces: true
 })
-export class JoinRoomComponent implements OnInit {
+export class JoinRoomComponent implements OnDestroy {
 
   backendError = false;
   inputError = false;
   loading = false;
+  subscription: Subscription;
 
   constructor(
     private backend: BackendService,
     private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnDestroy() {
+    if(this.subscription) {
+        this.subscription.unsubscribe();
+    }
   }
 
   submit(roomId: string) {
@@ -28,7 +33,7 @@ export class JoinRoomComponent implements OnInit {
       this.backendError = false;
     } else {
       this.loading = true;
-      this.backend.getJoinRoom(roomId)
+      this.subscription = this.backend.getJoinRoom(roomId)
       .subscribe(
         response => {
           this.router.navigate(['/connect']);
