@@ -1,6 +1,6 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Room } from '../models';
+import { Music, Room } from '../models';
 import { BackendService } from '../services/backend.service';
 import { MusicService } from '../services/music.service';
 
@@ -17,6 +17,16 @@ export class MainComponent implements OnInit {
   roomInfo: Room;
   baseUrl = 'https://open.spotify.com/embed/playlist/';
   playlistUrl: SafeResourceUrl;
+  songHistory: Music[];
+
+  temp1 = {
+    song: "golden",
+    artist: "harry styles"
+  };
+  temp2 = {
+    song: "starboy",
+    artist: "the weeknd"
+  }
 
   constructor(
     private musicService: MusicService,
@@ -38,7 +48,7 @@ export class MainComponent implements OnInit {
       .subscribe(state => {
         this.currentAlbumArt = state.albumArt;
         this.description = state.song + ' by ' + state.artist;
-      })
+      });
 
   }
 
