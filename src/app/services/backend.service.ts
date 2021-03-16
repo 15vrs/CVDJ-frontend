@@ -11,6 +11,7 @@ import { FacialEmotions, Music, Room } from '../models';
 export class BackendService {
 
   @Output() musicStateUpdated = new EventEmitter<Music>();
+  @Output() songHistoryUpdated = new EventEmitter<Music>();
 
   private backendApiUrl = environment.apiUrl;
 
@@ -104,6 +105,7 @@ export class BackendService {
     ).subscribe(response => {
       if (response.albumArt !== this.musicState.albumArt){
         this.updateMusicDetails(response);
+        this.addSongToHistory(response);
       }
     });
   }
@@ -125,11 +127,12 @@ export class BackendService {
     ).subscribe(response => {
       if (response.albumArt !== this.musicState.albumArt){
         this.updateMusicDetails(response);
+        this.addSongToHistory(response);
       }
     });
   }
 
-  // skip song
+  // previous song
   previousSong() {
     this.http.get<any>(this.backendApiUrl + '/previous/' + this.roomState.roomId)
     .pipe(
@@ -150,6 +153,15 @@ export class BackendService {
     this.musicState.song = response.song;
     this.musicState.artist = response.artist;
     this.musicStateUpdated.emit(this.musicState);
+  }
+
+  private addSongToHistory(response) {
+    let entry: Music = {
+      song: response.song,
+      artist: response.artist,
+      albumArt: response.albumArt
+    };
+    this.songHistoryUpdated.emit(entry);
   }
 
   /**
