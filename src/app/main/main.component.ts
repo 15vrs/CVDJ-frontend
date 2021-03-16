@@ -55,8 +55,8 @@ export class MainComponent implements OnInit {
   @HostListener('window:beforeunload', [ '$event' ])
   onBeforeUnload($event: any) {
     if (this.backend.getRoomInfo().roomId !== undefined ) {
+      $event.returnValue = false;
       this.backend.postLeaveRoom();
     };
-    $event.returnValue = false;
   }
 }
