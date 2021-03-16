@@ -25,7 +25,10 @@ export class UserCameraComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    // display webcam on page first time
+    /**
+     * display webcam on page first time
+     * don't use ngOnDestroy because we need to continually send snapshots
+     */
     this.cameraService.connectClicked
       .subscribe(event => {
         this.getCameraState();

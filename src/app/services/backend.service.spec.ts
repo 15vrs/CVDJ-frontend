@@ -19,7 +19,7 @@ describe('BackendService', () => {
   });
 
   it('getJoinRoom should return an Object', () => {
-    expect(service.getJoinRoom("1")).toEqual(jasmine.any(Object));
+    expect(service.getJoinRoom('1')).toEqual(jasmine.any(Object));
   });
 
   it('getFacialEmotions should return an Object', () => {
@@ -27,17 +27,17 @@ describe('BackendService', () => {
   });
 
   it('setUserId should change the roomState', () => {
-    service.setUserId("1234");
-    expect(service.getRoomInfo().userId).toEqual("1234");
+    service.setUserId('1234');
+    expect(service.getRoomInfo().userId).toEqual('1234');
   });
 
   it('setRoomId should change the roomState', () => {
-    service.setRoomId("12");
-    expect(service.getRoomInfo().roomId).toEqual("12");
+    service.setRoomId('12');
+    expect(service.getRoomInfo().roomId).toEqual('12');
   });
 
   it('setPlaylistUri should change the roomState', () => {
-    service.setPlaylistUri("fakeURI.site");
-    expect(service.getRoomInfo().playlistUri).toEqual("fakeURI.site");
+    service.setPlaylistUri('fakeURI.site');
+    expect(service.getRoomInfo().playlistUri).toEqual('fakeURI.site');
   });
 });
