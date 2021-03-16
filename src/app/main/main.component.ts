@@ -43,8 +43,8 @@ export class MainComponent implements OnInit {
 
     this.backend.songHistoryUpdated
       .subscribe(state => {
-        // check if song is already in playlist history
-        if (this.songHistory.findIndex( songInfo => songInfo.song === state.song) < 0 ) {
+        // check if song-artist pair is already in playlist history
+        if (this.songHistory.findIndex( songInfo => songInfo.song === state.song) < 0 && this.songHistory.findIndex( songInfo => songInfo.artist === state.artist)) {
           this.songHistory.push(state);
         }
       });
