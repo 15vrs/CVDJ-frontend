@@ -17,16 +17,7 @@ export class MainComponent implements OnInit {
   roomInfo: Room;
   baseUrl = 'https://open.spotify.com/embed/playlist/';
   playlistUrl: SafeResourceUrl;
-  songHistory: Music[];
-
-  temp1 = {
-    song: "golden",
-    artist: "harry styles"
-  };
-  temp2 = {
-    song: "starboy",
-    artist: "the weeknd"
-  }
+  songHistory: Music[] = [];
 
   constructor(
     private musicService: MusicService,
@@ -50,6 +41,10 @@ export class MainComponent implements OnInit {
         this.description = state.song + ' by ' + state.artist;
       });
 
+    this.backend.songHistoryUpdated
+      .subscribe(state => {
+        this.songHistory.push(state);
+      });
   }
 
   @HostListener('window:beforeunload', [ '$event' ])

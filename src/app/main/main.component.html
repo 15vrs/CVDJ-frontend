@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <h2 class="text-center">Song History</h2>
+        <h2 class="text-center">Playlist History</h2>
         <table class="table">
           <thead>
             <tr>
@@ -22,17 +22,13 @@
               <th scope="col">Artist</th>
             </tr>
           </thead>
-          <tr *ngFor="let songInfo of songHistory">
-            <td>{{songInfo.song}}</td>
-            <td>{{songInfo.artist}}</td>
-          </tr>
+          <tbody>
+            <tr *ngFor="let songInfo of songHistory">
+              <td>{{songInfo.song}}</td>
+              <td>{{songInfo.artist}}</td>
+            </tr>
+          </tbody>
         </table>
-        <iframe 
-        [src]="playlistUrl"
-        width="100%"
-        frameborder="0" 
-        allowtransparency="true" 
-        allow="encrypted-media"></iframe>
       </div>
       <div class="col-md-6">
         <song-info
