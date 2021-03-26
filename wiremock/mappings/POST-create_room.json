@@ -1,13 +1,18 @@
 {
   "request": {
-      "method": "GET",
-      "urlPathPattern": "/create_room/(.*)"
+      "method": "POST",
+      "urlPathPattern": "/create_room",
+      "queryParameters": {
+        "code": {
+          "matches": ".*"
+        }
+      }
   },
   "response": {
       "status": 200,
       "jsonBody": {
-        "roomId": "room1",
-        "userId": "user1",
+        "roomId": "3",
+        "userId": "123",
         "accessToken": "accesstoken",
         "playlistUri": "0YOqJAoYs2dJk6KzrGJc5x"
       },
