@@ -9,16 +9,14 @@
           "Content-Type": "application/json"
       },
       "jsonBody": {
-        "emotion": {
-            "anger": "0.011",
-            "contempt": "0",
-            "disgust": "0",
-            "fear": "0",
-            "happiness": "0.006",
-            "neutral": "0.824",
-            "sadness": "0",
-            "surprise": "0.158"
-        }
-      }
+        "anger": "0.011",
+        "contempt": "0",
+        "disgust": "0",
+        "fear": "0",
+        "happiness": "0.006",
+        "neutral": "0.824",
+        "sadness": "0",
+        "surprise": "0.158"
+    }
   }
 }
