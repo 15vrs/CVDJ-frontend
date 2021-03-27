@@ -1,7 +1,7 @@
 {
   "request": {
       "method": "GET",
-      "urlPathPattern": "/join_room/([0-9]*)"
+      "urlPathPattern": "/join_room/3"
       
   },
   "response": {
